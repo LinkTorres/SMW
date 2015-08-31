@@ -10,7 +10,7 @@ Ordens
 /*
 1 Planchado
 2 Lavado
-3 Plancado y Lavado
+3 Paquete
 */
 
 
