@@ -1,0 +1,1 @@
+C:\xampp\htdocs\mint\app/views/minimos/create.blade.php

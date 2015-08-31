@@ -1,0 +1,1 @@
+C:\xampp\htdocs\mint\app/views/pedidos/show.blade.php
