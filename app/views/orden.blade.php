@@ -200,12 +200,14 @@
         fecha = (formato[2].length>3)? formato[2] +"-" + formato[1] +"-" +formato[0] : formato[2] +"-" + formato[0] +"-"+ formato[1];
         $('#iptFR').val(fecha);
         console.log("Valor: "+ fecha);
+        col2=$('#colonia_e').val();
+        console.log("Colonia: " + col2);
         onfocus="#fecha_recoleccion";
            $.ajax({
               type:'POST',
               dataType: 'JSON',
               url: 'disponible',
-              data: {fecha: fecha},
+              data: {fecha: fecha, col2:col2},
                 success :
                 function(data) 
                 {   

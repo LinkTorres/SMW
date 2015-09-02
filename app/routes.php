@@ -32,7 +32,7 @@ Route::group(['before' => 'auth'], function()
 {
 
 
-	Route::get('correo',['as'=> 'correo','uses'=>'HomeController@correo']);
+		Route::get('correo',['as'=> 'correo','uses'=>'HomeController@correo']);
 
 		Route::get('historial','HomeController@historial');
 		Route::get('nuevoMes','HorariosController@create');
@@ -130,6 +130,10 @@ Route::group(['before' => 'auth'], function()
 			Route::post('disponible', function () {
 				
 				$fecha= Input::get();
+				Log::info('Valor de arreglo');
+				Log::info($fecha);
+				$num=(int)$fecha['col2'];
+				
 				date_default_timezone_set('America/Mexico_City');
 				setlocale(LC_TIME, 'spanish');
 				$hoy=  date('Y-m-d');
@@ -139,11 +143,17 @@ Route::group(['before' => 'auth'], function()
 				{
 					$hora=  date('H:m');
 				}
-		
-				
-													
-				$disponible = Monitor\Entities\Disponibilidads::leftJoin('horas', 'disponibilidads.hora_id' , '=', 'horas.id')->where('fecha' ,'=', $fecha)
-																->where('disponible','=',0)->where('hora','>=',$hora)->get();
+				if($num<4){	
+				Log::info('Zona A');								
+				$disponible = Monitor\Entities\Disponibilidads::leftJoin('horas', 'disponibilidads.hora_id' , '=', 'horas.id')->where('fecha' ,'=', $fecha['fecha'])
+																->where('disponible','=',0)->where('Zona','A')->where('hora','>=',$hora)->get();
+				}
+				else{
+				Log::info('Zona B');								
+				$disponible = Monitor\Entities\Disponibilidads::leftJoin('horas', 'disponibilidads.hora_id' , '=', 'horas.id')->where('fecha' ,'=', $fecha['fecha'])
+																->where('disponible','=',0)->where('Zona','B')->where('hora','>=',$hora)->get();	
+				}
+
 				$horarios= array();
 				foreach ($disponible as $horario){
 					$horarios[$horario['id']]=$horario['id'];

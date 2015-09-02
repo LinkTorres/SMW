@@ -114,10 +114,11 @@ $tipo_pago;
                 <address>
                   <strong>Cliente:  
                        @foreach ($pedido->ticket as $ticket)
-                       <?php $tipo_pago= $ticket->pago;?>
-                        
+                        <?php $tipo_pago= $ticket->pago;?>
+                                                 
                         @foreach ($ticket->cliente as $cliente)
                             {{ utf8_encode($cliente->nombre) }}
+
                             <?php $cliente=utf8_encode($cliente->nombre); ?>
 
                         @endforeach
@@ -132,6 +133,28 @@ $tipo_pago;
                     @endforeach
 
                   </strong><br>
+                    Dirección:
+                          @foreach ($pedido->ticket as $ticket)
+                        <?php $tipo_pago= $ticket->pago;?>
+                                                 
+                        @foreach ($ticket->cliente as $cliente)
+                            {{ utf8_encode($cliente->direccion) }}
+
+                            <?php $cliente=utf8_encode($cliente->nombre); ?>
+
+                        @endforeach
+
+                        @foreach ($ticket->pagar as $pago)
+                            <?php $pago=$pago->pago;
+                             
+                            ?>
+                        @endforeach  
+
+                         
+                    @endforeach
+                      <br>
+
+
                     Ticket {{ $pedido->ticket_id }} <br>
                     <?php $modal_id=$pedido->ticket_id; 
                      $costo= $ticket->monto;

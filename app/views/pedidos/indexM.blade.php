@@ -35,7 +35,7 @@ Recepción de Ordenes
         </thead>
         <tbody>
 
-        @foreach ($pedidos as $pedido)
+        @foreach ($pedidos->reverse() as $pedido)
             <tr>
                     <?php 
                         $piezas = ($pedido->piezas > 0)? $pedido->piezas : 0;
