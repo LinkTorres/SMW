@@ -34,7 +34,7 @@ class HorariosController extends \BaseController {
 		date_default_timezone_set('America/Mexico_City');
 		setlocale(LC_TIME, 'spanish');
 		$anio =date('Y');
-		$mes= 9; //date('m');
+		$mes= date('m');
 		$dias =date('t');
 		
 		

@@ -5,7 +5,8 @@ $piezas="";
 $kilos="";
 $descripcion="";
 $costo="";
-$p_id=""; ?>
+$p_id=""; 
+$turno="" ?>
 @extends('monitor')
 
 @section('titulo')
@@ -36,6 +37,7 @@ Recepción de Ordenes
         <tbody>
 
         @foreach ($pedidos->reverse() as $pedido)
+            {{ Log::info($pedido) }}
             <tr>
                     <?php 
                         $piezas = ($pedido->piezas > 0)? $pedido->piezas : 0;
@@ -80,6 +82,7 @@ Recepción de Ordenes
                     @foreach($pedido->fechaRecoleccion as $fecha)
                         {{ date("d-M-Y",strtotime($fecha ->fecha)) }} a las
                         {{ $fecha->hora->hora }}
+                        {{ Log::info($fecha->hora->id) }}
 
                     @endforeach
                     <br>
@@ -98,9 +101,44 @@ Recepción de Ordenes
                                        
                                         <div class="form-group">
                                             {{  Form::label('recolector', 'Recolector') }}
-                                            {{ Form::select('recolector',$recolectores,null,['class'=> 'input-sm'],1) }}
+                                            @if ($pedido->id_colonia_r < 4)
+                                                   @if ($turno <11)
+                                                    
+                                                        {{ Form::select('recolector',$recolectores,1,['class'=> 'input-sm', ' disabled'],1) }}
+                                                    
+                                                    @else
+                                                    
+                                                        {{ Form::select('recolector',$recolectores,2,['class'=> 'input-sm', ' disabled'],1) }}
+                                                    
+                                                    
+                                                    @endif
 
+                                                
+                                            @else
+                                                 
+                                                    @if($turno <11)
+                                                    
+                                                       {{ Form::select('recolector',$recolectores,3,['class'=> 'input-sm', ' disabled'],1) }}
+                                                    
+                                                    
+                                                    @else
+                                                    
+                                                        {{ Form::select('recolector',$recolectores,4,['class'=> 'input-sm', ' disabled'],1) }}
+                                                    
+                                                    @endif
+
+                                                
+                                            @endif                 
                                             
+                                           <br>
+                                        <a href="#" onclick="habilitarOtro();return false;">Otro</a>
+                                            <script type="text/javascript">
+                                                function  habilitarOtro() {
+    $( "#recolector" ).prop( "disabled", false ); 
+    console.log("Holi");
+        
+}
+                                            </script>
                                         </div>  
                                     </div>
                                     <div class="modal-footer">
@@ -270,7 +308,7 @@ Recepción de Ordenes
                                        
                                         <div class="form-group">
                                             {{  Form::label('recolector', 'Recolector') }}
-                                            {{ Form::select('recolector',$recolectores,null,['class'=> 'input-sm'],1) }}
+                                            {{ Form::select('recolector',$recolectores,null,['class'=> 'input-sm','disabled'],1) }}
 
                                             
                                         </div>  
