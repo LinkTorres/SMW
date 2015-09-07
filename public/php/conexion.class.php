@@ -5,7 +5,7 @@ class conexion {
 
 	 private $usuario    = "root";
     private $contrasena  = "";
-    private $servidor    = "localhost";
+    private $servidor    = "localhost:3307";
     private $baseDatos   = "mintwas1_mint";
 
 

@@ -15,6 +15,18 @@ Recepción de Ordenes
 
 @section('contenido')
    
+<div class="row">
+    <center><h2>Status</h2></center>
+    <div class="col-md-2 btn btn-danger">Orden Levantada</div>
+    <div class="col-md-2 btn btn-default">En Ruta-Recoleccion</div>
+    <div class="col-md-2 btn btn-primary">Recolectada</div>
+    
+    <div class="col-md-2 btn btn-info">En establecimiento</div>
+    <div class="col-md-2 btn btn-warning">En ruta Entrega</div>
+    <div class="col-md-2 btn btn-success">Pagada</div>
+    
+</div>
+
 <br>
 
 <br>
@@ -38,7 +50,23 @@ Recepción de Ordenes
 
         @foreach ($pedidos->reverse() as $pedido)
             {{ Log::info($pedido) }}
-            <tr>
+            @if ($pedido->estatus_id===1)
+                <tr class="danger">
+            @elseif ($pedido->estatus_id===2)
+                <tr class="default">
+            @elseif ($pedido->estatus_id===3)
+                <tr class="primary">
+            @elseif ($pedido->estatus_id===4)
+                <tr class="info">
+            @elseif ($pedido->estatus_id===5)
+                <tr class="warning">
+            @elseif ($pedido->estatus_id===6)
+                <tr class="success">
+            @else
+                <tr>
+            @endif
+
+            
                     <?php 
                         $piezas = ($pedido->piezas > 0)? $pedido->piezas : 0;
                         $kilos = ($pedido->kilos > 0)? $pedido->kilos : 0;
@@ -83,11 +111,16 @@ Recepción de Ordenes
                         {{ date("d-M-Y",strtotime($fecha ->fecha)) }} a las
                         {{ $fecha->hora->hora }}
                         {{ Log::info($fecha->hora->id) }}
+                         <?php 
+                        $turno = (int) $fecha->hora->id;
+                       
+
+                    ?> 
 
                     @endforeach
                     <br>
                      @if($pedido->estatus_id===1)
-                        <a class="btn btn-primary" data-toggle="modal" href='#modal{{ $modal_id }}'>Asignar Recolector</a>
+                        <a class="btn btn-danger" data-toggle="modal" href='#modal{{ $modal_id }}'>Asignar Recolector</a>
                         {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frm_'.$modal_id]) }}
                         <div class="modal fade" id="modal{{ $modal_id }}">
                             <div class="modal-dialog">
@@ -101,14 +134,15 @@ Recepción de Ordenes
                                        
                                         <div class="form-group">
                                             {{  Form::label('recolector', 'Recolector') }}
+                                            {{ Log::info($turno) }}
                                             @if ($pedido->id_colonia_r < 4)
                                                    @if ($turno <11)
                                                     
-                                                        {{ Form::select('recolector',$recolectores,1,['class'=> 'input-sm', ' disabled'],1) }}
+                                                        {{ Form::select('recolector',$recolectores,1,['class'=> 'input-sm','data-val' => $modal_id,' disabled'],1) }}
                                                     
                                                     @else
                                                     
-                                                        {{ Form::select('recolector',$recolectores,2,['class'=> 'input-sm', ' disabled'],1) }}
+                                                        {{ Form::select('recolector',$recolectores,2,['class'=> 'input-sm', 'data-val' => $modal_id,' disabled'],1) }}
                                                     
                                                     
                                                     @endif
@@ -118,12 +152,12 @@ Recepción de Ordenes
                                                  
                                                     @if($turno <11)
                                                     
-                                                       {{ Form::select('recolector',$recolectores,3,['class'=> 'input-sm', ' disabled'],1) }}
+                                                       {{ Form::select('recolector',$recolectores,3,['class'=> 'input-sm','data-val' => $modal_id, ' disabled'],1) }}
                                                     
                                                     
                                                     @else
                                                     
-                                                        {{ Form::select('recolector',$recolectores,4,['class'=> 'input-sm', ' disabled'],1) }}
+                                                        {{ Form::select('recolector',$recolectores,4,['class'=> 'input-sm','data-val' => $modal_id, ' disabled'],1) }}
                                                     
                                                     @endif
 
@@ -131,13 +165,15 @@ Recepción de Ordenes
                                             @endif                 
                                             
                                            <br>
-                                        <a href="#" onclick="habilitarOtro();return false;">Otro</a>
+                                        <a href="#" onclick="habilitarOtro({{ $modal_id }});return false;">Otro</a>
                                             <script type="text/javascript">
-                                                function  habilitarOtro() {
-    $( "#recolector" ).prop( "disabled", false ); 
-    console.log("Holi");
-        
-}
+                                                function  habilitarOtro(id) {
+                                                    console.log("Holi1");
+                                                    $('[data-val='+id+']').prop( "disabled", false );
+                                                    console.log("Holi2");
+                                                    
+                                                        
+                                                }
                                             </script>
                                         </div>  
                                     </div>
@@ -178,7 +214,7 @@ Recepción de Ordenes
                         {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frme_'.$modal_id]) }}
 
                            <p class="text-center">
-                            <a class="btn btn-success" data-toggle="modal" href='#modal{{ $modal_id }}'>Ticket {{ $modal_id }} recolectada </a>
+                            <a class="btn btn-primary" data-toggle="modal" href='#modal{{ $modal_id }}'>Recibir en Establecimiento</a>
                             </p>
                                 <div class="modal fade" id="modal{{ $modal_id }}">
                                     <div class="modal-dialog">
@@ -240,7 +276,7 @@ Recepción de Ordenes
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cambiaStatus({{ $modal_id}},4)">Aceptar Orden</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cambiaStatus({{ $modal_id}},4)">Orden Correcta</button>
                                             </div>
                                         </div>
                                     </div>
@@ -253,7 +289,7 @@ Recepción de Ordenes
                         @endif
 
                         @if($pedido->estatus_id===4)
-                        <a class="btn btn-info" data-toggle="modal" href='#modal{{ $modal_id }}'>Asignar a Repartido</a>
+                        <a class="btn btn-info" data-toggle="modal" href='#modal{{ $modal_id }}'>Asignar Recolector</a>
                         {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frm_e'.$modal_id]) }}
                         <div class="modal fade" id="modal{{ $modal_id }}">
                             <div class="modal-dialog">
@@ -308,8 +344,17 @@ Recepción de Ordenes
                                        
                                         <div class="form-group">
                                             {{  Form::label('recolector', 'Recolector') }}
-                                            {{ Form::select('recolector',$recolectores,null,['class'=> 'input-sm','disabled'],1) }}
-
+                                            {{ Form::select('recolector',$recolectores,null,['class'=> 'input-sm','data-val' => $modal_id, 'disabled'],1) }}
+                                            <a href="#" onclick="habilitarOtro({{ $modal_id }});return false;">Otro</a>
+                                            <script type="text/javascript">
+                                                function  habilitarOtro(id) {
+                                                    console.log("Holi1");
+                                                    $('[data-val='+id+']').prop( "disabled", false );
+                                                    console.log("Holi2");
+                                                    
+                                                        
+                                                }
+                                            </script>        
                                             
                                         </div>  
                                     </div>
@@ -339,16 +384,52 @@ Recepción de Ordenes
     @endif
 </div>
 
-
-<div class="modal fade" id="mdalSuccess" style="display:none" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" id="mdalSuccessEntrega" style="display:none" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 
-                <h4 class="modal-title">Cambio Realizado</h4>
+                <h4 class="modal-title">Entrega</h4>
             </div>
             <div class="modal-body">
-                El cambio se ha realizado correctamente.
+                Se ha asignado al recolector para la entrega de la orden.
+            </div>
+            <div class="modal-footer">
+                {{ HTML::link('pedidos', 'Aceptar', array('class' => 'btn btn-success')); }}
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="mdalSuccessEstablecimiento" style="display:none" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <h4 class="modal-title">Orden Recibida</h4>
+            </div>
+            <div class="modal-body">
+                La orden ha sido recibida en el establecimiento.
+            </div>
+            <div class="modal-footer">
+                {{ HTML::link('pedidos', 'Aceptar', array('class' => 'btn btn-success')); }}
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdalSuccessAsignacion" style="display:none" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <h4 class="modal-title">Asignación Recolector</h4>
+            </div>
+            <div class="modal-body">
+                Se ha efectuado la asignación del recolector.
             </div>
             <div class="modal-footer">
                 {{ HTML::link('pedidos', 'Aceptar', array('class' => 'btn btn-success')); }}

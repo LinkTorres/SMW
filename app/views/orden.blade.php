@@ -34,12 +34,27 @@
     {{ HTML::script('asset/js/bootstrap.min.js') }}
     {{ HTML::script('asset/js/jquery-ui.min.js') }}
     {{ HTML::script('asset/js/app/orden.js') }}
-
+ 
 
     
 
    <script>
   
+   function DisableSunday(date) {
+ 
+  var day = date.getDay();
+ // If day == 1 then it is MOnday
+ if (day == 0) {
+ 
+ return [false] ; 
+ 
+ } else { 
+ 
+ return [true] ;
+ }
+  
+}
+
    $.datepicker.regional['es'] = {
      closeText: 'Cerrar',
      prevText: '<Ant',
@@ -53,11 +68,13 @@
      weekHeader: 'Sm',
      dateFormat: 'dd/mm/yy',
      firstDay: 1,
+     beforeShowDay: DisableSunday,
      isRTL: false,
      showMonthAfterYear: false,
      yearSuffix: ''
    };
    $.datepicker.setDefaults($.datepicker.regional['es']);
+
 
 
 </script> 
@@ -98,83 +115,116 @@
    
     
       <div class="container">
-                <header class="section-header">
-                    <h2 class="section-title">Orden</h2>
-                    <p class="section-subtitle">Información General</p>
-                </header>
+
+                <DIV class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <header class="section-header">
+                            <h2 class="section-title">Orden de Servicio</h2>
+                            <p class="section-subtitle">Actualmente {{$info2}}</p>
+                        </header>
+                   </div>
+                    <div class="col-md-3 text-center" style=" border-style: solid;">
+                              <p>
+                              <span>Precios</span>
+                              
+                              <br> Lavado: $140. 4 Kilos.
+                              <br> Planchado: $135 Docena.
+                              <br> Paquete 1: $180.
+                            </p>
+                    </div>
+                </DIV>
+
+                
+
+
           <div class="row">
+
+
         
-        {{ Form::open(['route'=>'create.orden', 'method'=>'POST', 'role' => 'form','novalidate', 'id'=>'contact-form',  'class'=>'form-horizontal']) }}    
-       
-        
-        <div class="control-group">
-               {{  Form::label('nombre', 'Tu nombre') }}
-               {{  Form::text('nombre',null, ['class' => 'form-control input-lg'])}}
-               {{ $errors->first('nombre','<p class="message_error">:message</p>') }}
+                        
 
-        </div>  
+                        {{ Form::open(['route'=>'create.orden', 'method'=>'POST', 'role' => 'form','novalidate', 'id'=>'contact-form',  'class'=>'form-horizontal']) }}    
+                       <div class="col-md-3 col-lg-3"></div>
+                       <div class="col-md-6 col-lg-6 col-sm-12">
+                        
+                        <div class="control-group">
+                               {{  Form::label('nombre', 'Tu nombre') }}
+                               {{  Form::text('nombre',null, ['class' => 'form-control'])}}
+                               {{ $errors->first('nombre','<p class="message_error">:message</p>') }}
 
-        <div class="control-group">
-           {{  Form::label('correo', 'Correo') }}
-           {{  Form::email('correo', null, ['class' => 'form-control input-lg'])}}
-           {{ $errors->first('correo','<p class="message_error">:message</p>') }}
+                        </div>  
 
-
-        </div>
-
-        <div class="control-group">
-           {{  Form::label('telefono', 'Teléfono') }}
-           {{  Form::text('telefono', null, ['class' => 'form-control input-lg'])}}
-           {{ $errors->first('telefono','<p class="message_error">:message</p>') }}
+                        <div class="control-group">
+                           {{  Form::label('correo', 'Correo') }}
+                           {{  Form::email('correo', null, ['class' => 'form-control'])}}
+                           {{ $errors->first('correo','<p class="message_error">:message</p>') }}
 
 
-        </div>
+                        </div>
 
-        <div class="control-group">
-           {{  Form::label('direccion', 'Dirección') }}
-           {{  Form::text('direccion',null, ['class' => 'form-control input-lg'])}}
-           {{ $errors->first('direccion','<p class="message_error">:message</p>') }}
+                        <div class="control-group">
+                           {{  Form::label('telefono', 'Teléfono') }}
+                           {{  Form::text('telefono', null, ['class' => 'form-control'])}}
+                           {{ $errors->first('telefono','<p class="message_error">:message</p>') }}
 
-        </div>  
-      
 
-        <div class="control-group">
-            <div class="controls">
-            {{  Form::label('colonia_e', 'Colonia') }}
-            {{ Form::select('colonia_e',$rutas,null,['class'=> 'form-control input-lg'],1) }}
-            </div>
-        </div>
+                        </div>
 
-        <div class="control-group">
-            {{  Form::label('servicio', 'Servicio') }}
-            {{ Form::select('servicio',$servicio,null,['class'=> 'form-control input-lg'],1) }}
-        </div> 
+                        <div class="control-group">
+                           {{  Form::label('direccion', 'Dirección') }}
+                           {{  Form::text('direccion',null, ['class' => 'form-control'])}}
+                           {{ $errors->first('direccion','<p class="message_error">:message</p>') }}
 
-        <div class="control-group">
-            {{  Form::label('fecha_recoleccion', 'Fecha de Recolección') }}
-              {{  Form::text('fecha_recoleccion',null, ['class' => 'form-control','placeholder' => 'Fecha de Recolección', 'data-date-format' => 'dd-mm-yyyy'])}}
-              {{ $errors->first('fecha_recoleccion','<p class="message_error">:message</p>') }}
-              {{ Form::hidden('iptFR', NULL, array('id' => 'iptFR') ) }}
-        </div>
+                        </div>
+                        <div class="control-group">
+                           {{  Form::label('calles', 'Entre que calles se encuentra') }}
+                           {{  Form::text('calles',null, ['class' => 'form-control'])}}
+                           {{ $errors->first('calles','<p class="message_error">:message</p>') }}
 
-        <div class="control-group">
-            {{  Form::label('hora_recoleccion', 'Hora de Recolección') }}
-            {{ Form::select('hora_recoleccion',array(),null,['class'=> 'form-control input-lg'],1) }}
-        </div>
+                        </div>    
+                      
 
-        <div class="control-group">
-            {{  Form::label('pago', 'Forma de Pago') }}
-            {{ Form::select('pago',array('1' => 'Efectivo', '2' => 'Tarjeta de Crédito','3' => 'Tarjeta de Débito'),null,['class'=> 'form-control input-lg'],1) }}
-        </div>  
-        <div class="control-group">
-          {{  Form::label('descripcion', 'Requerimientos Especiales') }}
-          {{ Form::textarea('descripcion', null, ['class' => 'form-control input-lg','size' => '30x3' ])  }}
-        </div>
-       
-        <div class="form-actions">
-            <button type="submit" class="btn btn-default btn-lg btn-block">Realizar orden</button>
-        </div>
-    </form><!-- End contact-form -->
+                        <div class="control-group">
+                            <div class="controls">
+                            {{  Form::label('colonia_e', 'Colonia') }}
+                            {{ Form::select('colonia_e',$rutas,null,['class'=> 'form-control'],1) }}
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            {{  Form::label('servicio', 'Servicio') }}
+                            {{ Form::select('servicio',$servicio,null,['class'=> 'form-control'],1) }}
+                        </div> 
+
+                        <div class="control-group">
+                            {{  Form::label('fecha_recoleccion', 'Fecha de Recolección') }}
+                              {{  Form::text('fecha_recoleccion',null, ['class' => 'form-control','placeholder' => 'Fecha de Recolección', 'data-date-format' => 'dd-mm-yyyy'])}}
+                              {{ $errors->first('fecha_recoleccion','<p class="message_error">:message</p>') }}
+                              {{ Form::hidden('iptFR', NULL, array('id' => 'iptFR') ) }}
+                        </div>
+
+                        <div class="control-group">
+                            {{  Form::label('hora_recoleccion', 'Hora de Recolección') }}
+                            {{ Form::select('hora_recoleccion',array(),null,['class'=> 'form-control'],1) }}
+                        </div>
+
+                        <div class="control-group">
+                            {{  Form::label('pago', 'Forma de Pago') }}
+                            {{ Form::select('pago',array('1' => 'Efectivo', '2' => 'Tarjeta de Crédito','3' => 'Tarjeta de Débito'),null,['class'=> 'form-control'],1) }}
+                        </div>  
+                        <div class="control-group">
+                          {{  Form::label('descripcion', 'Requerimientos Especiales') }}
+                          {{ Form::textarea('descripcion', null, ['class' => 'form-control','size' => '30x3' ])  }}
+                        </div>
+                       
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-default btn-lg btn-block">Realizar orden</button>
+                        </div>
+                    </div>
+                    </form><!-- End contact-form -->
+
+                  
               
           </div>
       </div><br><br>

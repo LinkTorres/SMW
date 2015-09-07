@@ -87,6 +87,7 @@ $tipo_pago;
         <div id="hc_{{ $pedido->id }}" role="tab" class="panel-heading">
           <h4 class="panel-title" id="gc_{{ $pedido->id }}">
             <a aria-controls="col_{{ $pedido->id }}" aria-expanded="true" href="#col_{{ $pedido->id }}" data-parent="#div_Pedidos" data-toggle="collapse">
+              {{ Log::info($pedido) }}
                @if($pedido->estatus_id===2)
                [Recolectar]
                @else
@@ -96,11 +97,12 @@ $tipo_pago;
               Ticket - {{ $pedido->ticket_id }} 
               
               @foreach ($pedido->recoleccion as $recoleccion)
-              Zona {{ $recoleccion->ruta }}
-              @endforeach            
+              Colonia {{ $recoleccion->ruta }}
+              @endforeach  
+
 
               @foreach($pedido->fechaRecoleccion as $fecha)
-               Hora {{ $fecha->hora->hora }}
+               {{ $fecha->fecha }} {{ $fecha->hora->hora }}
               @endforeach
 
 
@@ -155,7 +157,7 @@ $tipo_pago;
                       <br>
 
 
-                    Ticket {{ $pedido->ticket_id }} <br>
+                    
                     <?php $modal_id=$pedido->ticket_id; 
                      $costo= $ticket->monto;
 
@@ -173,14 +175,11 @@ $tipo_pago;
                           ?>
                       @endforeach
 
-                    
-                      @foreach ($pedido->recoleccion as $recoleccion)
-                          . <strong>{{ $recoleccion->ruta }}</strong><br>
-                      @endforeach    
-                      
+                       
+                      <br>
 
                       @foreach($pedido->fechaEntrega as $fecha)
-                          {{ date("d-m-Y",strtotime($fecha ->fecha)) }} a las
+                          Horario: {{ date("d-m-Y",strtotime($fecha ->fecha)) }} a las
                           {{ $fecha->hora->hora }}
 
                       @endforeach
@@ -252,10 +251,14 @@ $tipo_pago;
                                            <input type="hidden" value="0" id="iptTotal{{ $modal_id }}" name="iptTotal">
 
 
+
+
                                            </td>
 
                                           </tr> 
-                                          
+                                          <tr>
+                                            <td colspan="2"><textarea id="requerimientos" name="requerimientos" style="width:100%;">{{ utf8_encode($pedido->descripcion) }}</textarea></td>
+                                          </tr>
                                         </tbody>
                                       </table>
                                     </div>  
@@ -269,7 +272,7 @@ $tipo_pago;
                                </div>
                              </div>
                                         
-                            <textarea>{{ utf8_encode($pedido->descripcion) }}</textarea>
+                            
                           </div>
                           </p>
                       

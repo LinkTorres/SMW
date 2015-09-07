@@ -51,13 +51,24 @@ return array(
 			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
-
+			/*
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'mintwas1_mint',
 			'username'  => 'mintwas1_Admin',
 			'password'  => 'rootdb3mas@asantos@mx@75913',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_general_ci',
+			'prefix'    => '',
+		),*/
+
+		'mysql' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost:3307',
+			'database'  => 'mintwas1_mint',
+			'username'  => 'root',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

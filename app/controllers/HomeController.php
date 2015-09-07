@@ -35,6 +35,7 @@ class HomeController extends \BaseController {
 	public function index()
 	{
 		$zonas= Zona::all();
+
 		
 		return View::make('zonas/index')->with ('zonas',$zonas);;
 		
@@ -53,8 +54,9 @@ class HomeController extends \BaseController {
 
 		
 		$rutas = $this->rutaRepo->lista_rutas();
-
-		return View::make('orden', compact('rutas'));
+		$info2 = date('d-m-Y H:i');
+		Log::info($info2);
+		return View::make('orden', compact('rutas'))->with('info2',$info2);
 	}
 	
 	

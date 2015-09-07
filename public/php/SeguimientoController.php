@@ -118,13 +118,14 @@ if ($_GET['pdg']==2){
 	    $respuesta['tipo']=2;
 	    $respuesta['r']=1;
 	    $respuesta['modal']="#mdal_".$_POST['iptT'];
-	    $respuesta['success']="#mdalSuccess";
+	    $respuesta['success']="#mdalSuccessAsignacion";
 			    	
     //}
     echo json_encode($respuesta);
     
 }   
 
+//Monitor recibe en establecimiento.
 if ($_GET['pdg']==4){
 	//echo "<pre>".print_r($_POST,true)."</pre>";
 	extract($_POST);
@@ -137,13 +138,14 @@ if ($_GET['pdg']==4){
 	    $respuesta['tipo']=2;
 	    $respuesta['r']=1;
 	    $respuesta['modal']="#mdal_".$_POST['iptT'];
-	    $respuesta['success']="#mdalSuccess";
+	    $respuesta['success']="#mdalSuccessEstablecimiento";
 			    	
     //}
     echo json_encode($respuesta);
     
 }    
 
+//Monitor asigna recolector para entrega
 if ($_GET['pdg']==5){
 	//echo "<pre>".print_r($_POST,true)."</pre>";
 	extract($_POST);
@@ -156,7 +158,7 @@ if ($_GET['pdg']==5){
 	    $respuesta['tipo']=2;
 	    $respuesta['r']=1;
 	    $respuesta['modal']="#mdal_".$_POST['iptT'];
-	    $respuesta['success']="#mdalSuccess";
+	    $respuesta['success']="#mdalSuccessEntrega";
 			    	
     //}
     echo json_encode($respuesta);

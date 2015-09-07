@@ -7,12 +7,26 @@ use Monitor\Entities\Ruta;
 use Monitor\Entities\Pedido;
 class HorarioRepo 
 {
-	public function ocuparHorario($fecha, $hora){
-		Disponibilidads::where('fecha','=', $fecha)
+	public function ocuparHorario($fecha, $hora,$zona){
+		if($zona < 4){
+			Disponibilidads::where('fecha','=', $fecha)
+						->where('Zona','A') 
 						->where('hora_id','=', $hora)->update(array('disponible' => 1) );
-		
-		$id= Disponibilidads::where('fecha','=', $fecha)
+			$id= Disponibilidads::where('fecha','=', $fecha)
+						->where('Zona','A') 
 						->where('hora_id','=', $hora)->pluck('id');
+		}
+		else
+		{
+			Disponibilidads::where('fecha','=', $fecha)
+						->where('Zona','B') 
+						->where('hora_id','=', $hora)->update(array('disponible' => 1) );
+			$id= Disponibilidads::where('fecha','=', $fecha)
+						->where('Zona','B') 
+						->where('hora_id','=', $hora)->pluck('id');
+		}
+		
+		
 					
 		return $id;
 	}
@@ -22,7 +36,7 @@ class HorarioRepo
 	}
 
 
-	public function agregaHoraEntrega($recoleccion,$entrega){
+	public function agregaHoraEntrega($recoleccion,$entrega,$zona){
 
 		$id;
 		$fecha = $recoleccion;
@@ -37,11 +51,11 @@ class HorarioRepo
 			$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 		}
 		
-		$ocupado= $this->estaDisponible($nuevafecha,$entrega);
+		$ocupado= $this->estaDisponible($nuevafecha,$entrega,$zona);
 
 		if($ocupado==0)
 		{
-			$id=$this->ocuparHorario($nuevafecha,$entrega);
+			$id=$this->ocuparHorario($nuevafecha,$entrega,$zona);
 		}
 		else
 		{
@@ -56,20 +70,29 @@ class HorarioRepo
 					$entrega--;
 				}
 				
-				$ocupado= $this->estaDisponible($nuevafecha,$entrega);
+				$ocupado= $this->estaDisponible($nuevafecha,$entrega,$zona);
 
 			}
-			$id=$this->ocuparHorario($nuevafecha,$entrega);
+			$id=$this->ocuparHorario($nuevafecha,$entrega,$zona);
 
 		}				
 		
 		return $id;
 		
 	}
-	public function estaDisponible($nuevafecha, $entrega){
+	public function estaDisponible($nuevafecha, $entrega, $zona){
 
-		$ocupado= Disponibilidads::where('fecha','=', $nuevafecha)
+		if($zona < 4){
+			$ocupado= Disponibilidads::where('fecha','=', $nuevafecha)
+						->where('Zona','A') 
 						->where('hora_id','=', $entrega)->pluck('disponible');
+		}
+		else
+		{
+			$ocupado= Disponibilidads::where('fecha','=', $nuevafecha)
+						->where('Zona','B') 
+						->where('hora_id','=', $entrega)->pluck('disponible');
+		}
 
 		return $ocupado;
 	}

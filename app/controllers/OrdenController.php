@@ -33,8 +33,9 @@ class OrdenController extends \BaseController {
 	{
 		$rutas = $this->rutaRepo->lista_rutas();
 		$servicio= $this->servicioRepo->listado_servicios();
-
-		return View::make('orden', compact('rutas','servicio'));
+		$info2 = date('d-m-Y H:i');
+		Log::info($info2);
+		return View::make('orden', compact('rutas','servicio','info2'));
 	}
 
 	/**
@@ -64,10 +65,11 @@ class OrdenController extends \BaseController {
 		
 		if($valido)
 		{
-			
+			Log::info($data);
 			$cliente= new Cliente();
 			$cliente->nombre	=$data['nombre'];
 			$cliente->direccion	=$data['direccion'];
+			$cliente->direccion = $cliente->direccion . " Entre: " . $data['calles'];
 			$cliente->telefono	=$data['telefono'];
 			$cliente->correo	=$data['correo'];
 			$cliente->ruta_id	=$data['colonia_e'];
@@ -98,6 +100,11 @@ class OrdenController extends \BaseController {
 			$costo="";
 			$pago="";
 			$descripcion="";
+			$colonia="";
+
+
+
+
 			switch ($data['servicio']) 
 			{
 				case 1:
@@ -137,10 +144,28 @@ class OrdenController extends \BaseController {
 
 			}
 
+			switch ($data['colonia_e']) {
+				case 1:
+					$colonia = "Roma";
+					break;
+				case 2:
+					$colonia = "Condesa";
+					break;
+				case 3:
+					$colonia = "Escandon";
+					break;
+				case 4:
+					$colonia = "Del Valle";
+					break;
+				case 5:
+					$colonia = "Napoles";
+					break;
+			}
+
 		
 		
-			$id_recoleccion=$this->horarioRepo->ocuparHorario($data['iptFR'], $data['hora_recoleccion']);
-			$id_entrega=$this->horarioRepo->agregaHoraEntrega($data['iptFR'], $data['hora_recoleccion']);
+			$id_recoleccion=$this->horarioRepo->ocuparHorario($data['iptFR'], $data['hora_recoleccion'],$data['colonia_e']);
+			$id_entrega=$this->horarioRepo->agregaHoraEntrega($data['iptFR'], $data['hora_recoleccion'],$data['colonia_e']);
 
 			$pedido->id_recoleccion=$id_recoleccion;
 			$pedido->id_entrega =$id_entrega;		
@@ -170,9 +195,9 @@ class OrdenController extends \BaseController {
 			$info = array('cliente' => $cliente->nombre, 
 							'ticket'=> $ticket->id,
 							'telefono'=>$cliente->telefono,
-							'creado'=>date('d-m-Y'),
+							'creado'=>date('d-m-Y H:i'),
 							'recoleccion'=> $data['fecha_recoleccion'],
-							'direccion'=>   $data['direccion'],
+							'direccion'=>   $data['direccion']. " Entre: " . $data['calles'],
 							'costo'=>$costo,
 							'servicio'=>$servicio_solicitado,
 							'correo'=>$cliente->correo,
@@ -180,7 +205,8 @@ class OrdenController extends \BaseController {
 							'hora_recoleccion' =>$hora_recoleccion,
 							'hora_entrega' =>$hora_entrega,
 							'fecha_entrega' => $fecha_entrega,
-							'descripcion' => $descripcion
+							'descripcion' => $descripcion,
+							'colonia' => $colonia
 
 							);
 		//echo "<pre>".print_r($horario_entrega,true)."</pre>";

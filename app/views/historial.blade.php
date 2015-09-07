@@ -35,7 +35,19 @@
    
 
     <script>
-  
+  function DisableSunday(date) {
+ 
+  var day = date.getDay();
+ // If day == 1 then it is MOnday
+ if (day == 0) {
+ 
+ return [false] ; 
+ 
+ } else { 
+ 
+ return [true] ;
+ }
+
    $.datepicker.regional['es'] = {
      closeText: 'Cerrar',
      prevText: '<Ant',
@@ -48,6 +60,7 @@
      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
      weekHeader: 'Sm',
      dateFormat: 'dd/mm/yy',
+     beforeShowDay: DisableSunday,
      firstDay: 1,
      isRTL: false,
      showMonthAfterYear: false,
@@ -134,19 +147,22 @@ line-height:0
         <tbody>
           <tr>
           <td>Recolección: {{ $info['direccion']}}</td>
-            <td>Costo Aproximado ${{ number_format($info['costo'],2)}}</td>
+          <!--
+            <td>Costo Aproximado ${{ number_format($info['costo'],2)}}</td>-->
+            <td>Colonia {{ $info['colonia']}}   </td>
           </tr>
           <tr>
-            <td colspan="2">Detalles</td>
+            <td colspan="2"><b>Detalles</b></td>
           </tr>  
           <tr>
-            <td>Servicio</td>
+            <td>Servicio: {{ $info['servicio']}}</td>
             <td></td>
           </tr>
 
           <tr>
-            <td><label class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ $info['descripcion']}}">{{ $info['servicio']}}</label></td>
-            <td>${{ number_format($info['costo'],2)}}</td>
+            <td> Costo Aproximado {{ $info['descripcion']}}</td>
+            <td><!--<label class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ $info['descripcion']}}"></label>--></td>
+            
           </tr>
           <tr>
             <td>Forma de Pago</td>
@@ -160,8 +176,9 @@ line-height:0
 </div>
 
 <div class="text-center">
-<a class="btn btn-primary hide" data-toggle="modal" href='#mdalEd'>Editar Fecha de entrega</a>
-<a class="btn btn-success" data-toggle="modal" href='#mdalFE'>Completar Orden</a>
+  <a class="btn btn-danger" data-toggle="modal" href='#mdalcancel'>Cancelar</a>
+<a class="btn btn-warning" data-toggle="modal" href='#mdalEd'>Editar Orden</a>
+<a class="btn btn-success" data-toggle="modal" href='#mdalFE'>Finalizar Orden</a>
 <div class="modal fade" id="mdalFE" style="display:none">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -171,6 +188,24 @@ line-height:0
       </div>
       <div class="modal-body">
         Tu orden esta completa, en unos momentos recibiras un correo con la información.
+      </div>
+      <div class="modal-footer">
+       
+         {{ HTML::link('principal', 'Aceptar', array('class' => 'btn btn-primary')); }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="mdalcancel" style="display:none">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Orden Cancelada</h4>
+      </div>
+      <div class="modal-body">
+        Tu orden ha sido cancelada.
       </div>
       <div class="modal-footer">
        
@@ -191,19 +226,20 @@ line-height:0
       <div class="modal-body">
         
          <div class="control-group">
-            {{  Form::label('fecha_entrega', 'Fecha de Entrega') }}
-              {{  Form::text('fecha_entrega',null, ['class' => 'form-control','placeholder' => 'Fecha de Entrega', 'data-date-format' => 'dd-mm-yyyy'])}}
-              {{ $errors->first('fecha_recoleccion','<p class="message_error">:message</p>') }}
-              {{ Form::hidden('iptFR', NULL, array('id' => 'iptFR') ) }}
-        </div>
-        <div class="control-group">
-            {{  Form::label('hora_entrega', 'Hora de Entrega') }}
-            {{ Form::select('hora_entrega',array(),null,['class'=> 'form-control input-lg'],1) }}
-        </div>
+                            {{  Form::label('fecha_recoleccion', 'Fecha de Recolección') }}
+                              {{  Form::text('fecha_recoleccion',null, ['class' => 'form-control','placeholder' => 'Fecha de Recolección', 'data-date-format' => 'dd-mm-yyyy'])}}
+                              {{ $errors->first('fecha_recoleccion','<p class="message_error">:message</p>') }}
+                              {{ Form::hidden('iptFR', NULL, array('id' => 'iptFR') ) }}
+                        </div>
+
+                        <div class="control-group">
+                            {{  Form::label('hora_recoleccion', 'Hora de Recolección') }}
+                            {{ Form::select('hora_recoleccion',array(),null,['class'=> 'form-control'],1) }}
+                        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
       </div>
     </div>
   </div>
@@ -240,6 +276,7 @@ line-height:0
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 <script>
+
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
