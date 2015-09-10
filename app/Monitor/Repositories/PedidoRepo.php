@@ -15,7 +15,7 @@ class PedidoRepo
 	
 	}
 	public function misPedidos($id){
-		$pedidos =Pedido::where('id_recolector_r', '=', $id )->whereIn('estatus_id', array(2,5))->get();
+		$pedidos =Pedido::where('id_recolector_r', '=', $id )->whereIn('estatus_id', array(2,5))->orderBy('id_recoleccion', 'asc')->get();
 		return $pedidos;
 	}
 	

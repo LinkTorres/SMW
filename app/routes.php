@@ -61,8 +61,9 @@ Route::group(['before' => 'auth'], function()
 		
 
 		Route::get('pedidos',['as'=> 'pedidos','uses'=>'PedidoController@index']);
+		Route::get('pedidoRecolecciónCancelada/{id}',['as'=> 'cancelarRecoleccion','uses'=>'PedidosController@cancelarRecoleccion']);
 
-
+		Route::get('pedidoEntregaCancelada/{id}',['as'=> 'cancelarEntrega','uses'=>'PedidosController@cancelarEntrega']);
 
 
 		Route::get('zonas',['as'=> 'zonas','uses'=>'ZonasController@index']);

@@ -146,6 +146,7 @@ function costoReco(tipo,pos) {
 	planchado=0;
 
 	total=0;
+
 	
 	servicio_completo= $('#iptSC'+pos).prop("checked") ? 180 : 0;
 	switch(tipo)
@@ -190,16 +191,19 @@ function costoReco(tipo,pos) {
 				$('#iptPP'+pos).val(0);
 			}
 				total= parseInt(obtener_valor('#iptPK'+pos)) + precio + servicio_completo;
-				console.log('Costo '+ precio + ' Piezas ' + piezas + "kilos "+ total);
+				console.log('Costo '+ precio + ' Piezas ' + piezas + "total "+ total);
 				planchado=1;
 		break;
 
 		case 3:
 				total=servicio_completo;
 				volumen = obtener_valor('#kilos'+pos);
+				console.log('Kilos '+volumen);
 				if(volumen>0) costoReco(2,pos);
 				piezas = obtener_valor('#piezas'+pos);
+				console.log('piezas '+piezas);
 				if(piezas>0) costoReco(3,pos);
+
 
 		break;
 		
@@ -265,17 +269,62 @@ function servicioCompleto (pos) {
 	
 }
 
-function adicional (pos) {
-	costoReco(3,pos);
-	console.log('se llamo a adicional' + pos);	
+function costoTotal25(pos){
+
+				servicio_completo= $('#iptSC'+pos).prop("checked") ? 180 : 0;
+
+				
+
+				//Lavar
+
+				volumen = obtener_valor('#kilos'+pos);
+				if(volumen==0)
+					precioVolumen=0;
+				else
+					precioVolumen = (volumen>=4)? 35 * volumen : 35 * 4;
+				console.log('Son Kilos '+volumen + " Precio "+precioVolumen);
+				
+
+				//Planchar
+				piezas = obtener_valor('#piezas'+pos);
+
+				minimo = 12;
+				adicional=10;
+				servicio = 135;
+				if(piezas==0)
+					precioPiezas=0;
+				else
+					precioPiezas = (piezas>=minimo)?  servicio + ((piezas - minimo) * adicional ) : servicio;
+				
+				console.log('Son piezas '+piezas+" Precio "+precioPiezas);
+				
+				total=servicio_completo+precioPiezas+precioVolumen;
+				console.log('Total: '+total);
+
+				$('#lbl_Costo'+pos).text('Costo $'+total.toFixed(2))
+				$('#iptTotal'+pos).val(total);
+	
+//
+}
+
+
+
+function adicional2(pos){
+	console.log('se llamo a adicional' + pos);
+	//costoReco(3,pos);
+
+	costoTotal25(pos);
+    console.log('finalizo adicional' + pos);
 }
 
 function guarda(pos){
 
 	//mostrar el precio
 	console.log('pos '+ pos);
-	costoReco(3,pos);
-
+	console.log('Voy a guardar');
+	//costoReco(3,pos);
+	costoTotal25(pos);
+	
 	//$('#frm_'+pos).submit();
 	//peticiong('#frm_'+pos,1);
 

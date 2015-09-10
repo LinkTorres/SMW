@@ -51,8 +51,8 @@ return array(
 			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
-			/*
-		'mysql' => array(
+			
+		/*'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'mintwas1_mint',
@@ -65,6 +65,17 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
+			'host'      => 'us-cdbr-azure-west-c.cloudapp.net',
+			'database'  => 'mintwas1_mint',
+			'username'  => 'b9be4bcade0d8c',
+			'password'  => '7da85792',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_general_ci',
+			'prefix'    => '',
+		),
+
+		/*'mysql' => array(
+			'driver'    => 'mysql',
 			'host'      => 'localhost:3307',
 			'database'  => 'mintwas1_mint',
 			'username'  => 'root',
@@ -72,7 +83,7 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
-		),
+		),*/
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',

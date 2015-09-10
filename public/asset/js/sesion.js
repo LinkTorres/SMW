@@ -207,6 +207,12 @@ var obj="#tr_"+obtener_valor('#iptPos');
 
 function cambiaStatus(pos,estatus){
 	var frm="";
+
+	console.log('Cambiare el status');
+
+	 $('[data-val='+pos+']').prop( "disabled", false );
+
+
 	switch(estatus)
 	{
 		case 2:

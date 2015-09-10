@@ -2,10 +2,10 @@
 
 
 class conexion {
-
-	 private $usuario    = "root";
-    private $contrasena  = "";
-    private $servidor    = "localhost:3307";
+Database=mintwas1_mint;Data Source=us-cdbr-azure-west-c.cloudapp.net;User Id=b9be4bcade0d8c;Password=7da85792
+	 private $usuario    = "b9be4bcade0d8c";
+    private $contrasena  = "7da85792";
+    private $servidor    = "us-cdbr-azure-west-c.cloudapp.net";
     private $baseDatos   = "mintwas1_mint";
 
 

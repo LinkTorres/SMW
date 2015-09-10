@@ -109,6 +109,8 @@ class HomeController extends \BaseController {
 
 
         $pedidos= $this->pedidoRepo->misPedidos($clave);
+        Log::info('Pedidos Recolector');
+        Log::info($pedidos);
         
 		return View::make('recolector', compact('pedidos'));
 	}

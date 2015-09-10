@@ -48,7 +48,7 @@ Recepción de Ordenes
         </thead>
         <tbody>
 
-        @foreach ($pedidos->reverse() as $pedido)
+        @foreach ($pedidos->reverse( as $pedido)
             {{ Log::info($pedido) }}
             @if ($pedido->estatus_id===1)
                 <tr class="danger">

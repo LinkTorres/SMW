@@ -87,7 +87,6 @@ $tipo_pago;
         <div id="hc_{{ $pedido->id }}" role="tab" class="panel-heading">
           <h4 class="panel-title" id="gc_{{ $pedido->id }}">
             <a aria-controls="col_{{ $pedido->id }}" aria-expanded="true" href="#col_{{ $pedido->id }}" data-parent="#div_Pedidos" data-toggle="collapse">
-              {{ Log::info($pedido) }}
                @if($pedido->estatus_id===2)
                [Recolectar]
                @else
@@ -192,7 +191,13 @@ $tipo_pago;
                       @if($statu->id===2)
                          <p class="text-center">
                          
-                            <a class="btn btn-primary" data-toggle="modal" href='#mdal_{{ $modal_id }}' onclick="servicioCompleto('{{ $modal_id }}')">Ver</a>
+                          
+                              <a class="btn btn-danger" data-toggle="modal" href='pedidoRecolecciónCancelada/{{ $modal_id }}'><span style="color:white;">No recolectar</span></a>
+                              <a style="color:white;" class="btn btn-success" data-toggle="modal" href='#mdal_{{ $modal_id }}' onclick="servicioCompleto('{{ $modal_id }}')">Recolectar</a>
+                          
+                              
+                          
+                              
                              <div class="modal fade" id="mdal_{{ $modal_id }}">
                                <div class="modal-dialog">
                                  <div class="modal-content">
@@ -211,10 +216,10 @@ $tipo_pago;
                                             <tr>
                                               <th>Servicio</th>
                                               <th>Paquete Completo 
-                                              @if($id_servicio==3)
-                                              <input type="checkbox" id="iptSC{{ $modal_id }}" checked onclick="adicional('{{ $modal_id }}')"></th>                                                
+                                              @if($id_servicio===3)
+                                              <input type="checkbox" id="iptSC{{ $modal_id }}" checked onclick="adicional2('{{ $modal_id }}')"></th>                                                
                                               @else
-                                                <input type="checkbox" id="iptSC{{ $modal_id }}" onclick="adicional('{{ $modal_id }}')"></th>
+                                                <input type="checkbox" id="iptSC{{ $modal_id }}" onclick="adicional2('{{ $modal_id }}')"></th>
                                               @endif
                                             </tr>
                                           </thead>
@@ -229,7 +234,7 @@ $tipo_pago;
                                         <thead>
                                           <tr>
                                             <th class="numeric">Costo</th>
-                                            <th class=""><label id="lbl_Costo{{ $modal_id }}" class="hide"></label></th>
+                                            <th class=""><label id="lbl_Costo{{ $modal_id }}"></label></th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -243,7 +248,7 @@ $tipo_pago;
                                            <td data-title="Piezas">Piezas para planchar</td>
                                            <td>
 
-                                           <input class="form-control" type="text" id="piezas{{ $modal_id}}" name="piezas" onkeypress='return numeros(event);' onkeyup='costoReco(2,{{ $modal_id }})'placeholder="Introduce las piezas a planchar ">
+                                           <input class="form-control" type="text" id="piezas{{ $modal_id }}" name="piezas" onkeypress='return numeros(event);' onkeyup='costoReco(2,{{ $modal_id }})'placeholder="Introduce las piezas a planchar ">
                                            <input type="hidden" id="iptPK{{ $modal_id }}" name="iptPK">
                                            <input type="hidden" id="iptPP{{ $modal_id }}" name="iptPP">
                                            <input type="hidden" value="{{ $pedido->id }}" name="iptI">
@@ -265,8 +270,8 @@ $tipo_pago;
                                    </form>
                                    </div>
                                    <div class="modal-footer">
-                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                                     <button type="button" class="btn btn-default" onclick="guarda({{ $modal_id }})">Guardar</button>
+                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                     <button type="button" class="btn btn-success" onclick="guarda({{ $modal_id }})">Recolectar</button>
                                    </div>
                                  </div>
                                </div>
@@ -279,7 +284,10 @@ $tipo_pago;
                       @else
                       
                       {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frm_'.$modal_id]) }}
-                      <a class="btn btn-primary" data-toggle="modal" href='#mdalP{{ $p_id }}'>Datos de entrega</a>
+                      <center>
+                      <a style="color:white;" class="btn btn-danger" data-toggle="modal" href='pedidoEntregaCancelada/{{ $modal_id }}'>No entregar</a>
+                      <a class="btn btn-success" style="color:white;" data-toggle="modal" href='#mdalP{{ $p_id }}'>Entregar</a>
+                      </center>
                       <div class="modal fade" id="mdalP{{ $p_id }}">
                         <div class="modal-dialog">
                           <div class="modal-content">

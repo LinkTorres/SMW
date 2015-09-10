@@ -166,4 +166,29 @@ class PedidosController extends \BaseController {
 		return Redirect::route('pedidos.index');
 	}
 
+	public function cancelarRecoleccion($id)
+	{
+		$pedido = Pedido::find($id);
+
+		$pedido->estatus_id = (int)'8';
+
+		$pedido->save();
+
+		return Redirect::route('recolector');
+
+	}
+
+	public function cancelarEntrega($id)
+	{
+		$pedido = Pedido::find($id);
+
+		$pedido->estatus_id = (int)'9';
+
+		$pedido->save();
+
+		return Redirect::route('recolector');
+
+	}
+
+
 }
