@@ -95,7 +95,7 @@ class HomeController extends \BaseController {
 	
 	}
 	public function principal(){
-		return Redirect::away('http://mintwash.azurewebsites.net/', 301);
+		return Redirect::away('http://mintwash.com.mx/', 301);
 	
 	}
 	public function usuario(){

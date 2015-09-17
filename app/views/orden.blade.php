@@ -150,14 +150,14 @@
                         
                         <div class="control-group">
                                {{  Form::label('nombre', 'Tu nombre') }}
-                               {{  Form::text('nombre',null, ['class' => 'form-control'])}}
+                               {{  Form::text('nombre',null, ['class' => 'form-control','required'])}}
                                {{ $errors->first('nombre','<p class="message_error">:message</p>') }}
 
                         </div>  
 
                         <div class="control-group">
                            {{  Form::label('correo', 'Correo') }}
-                           {{  Form::email('correo', null, ['class' => 'form-control'])}}
+                           {{  Form::email('correo', null, ['class' => 'form-control','required'])}}
                            {{ $errors->first('correo','<p class="message_error">:message</p>') }}
 
 
@@ -173,7 +173,7 @@
 
                         <div class="control-group">
                            {{  Form::label('direccion', 'Dirección') }}
-                           {{  Form::text('direccion',null, ['class' => 'form-control'])}}
+                           {{  Form::text('direccion',null, ['class' => 'form-control','required'])}}
                            {{ $errors->first('direccion','<p class="message_error">:message</p>') }}
 
                         </div>

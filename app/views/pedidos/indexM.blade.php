@@ -48,8 +48,8 @@ Recepción de Ordenes
         </thead>
         <tbody>
 
-        @foreach ($pedidos->reverse( as $pedido)
-            {{ Log::info($pedido) }}
+        @foreach ($pedidos->reverse() as $pedido)
+            
             @if ($pedido->estatus_id===1)
                 <tr class="danger">
             @elseif ($pedido->estatus_id===2)
@@ -110,7 +110,7 @@ Recepción de Ordenes
                     @foreach($pedido->fechaRecoleccion as $fecha)
                         {{ date("d-M-Y",strtotime($fecha ->fecha)) }} a las
                         {{ $fecha->hora->hora }}
-                        {{ Log::info($fecha->hora->id) }}
+                        s
                          <?php 
                         $turno = (int) $fecha->hora->id;
                        
@@ -134,7 +134,7 @@ Recepción de Ordenes
                                        
                                         <div class="form-group">
                                             {{  Form::label('recolector', 'Recolector') }}
-                                            {{ Log::info($turno) }}
+                                           
                                             @if ($pedido->id_colonia_r < 4)
                                                    @if ($turno <11)
                                                     

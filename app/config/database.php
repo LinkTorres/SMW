@@ -62,7 +62,7 @@ return array(
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
 		),*/
-
+/*
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'us-cdbr-azure-west-c.cloudapp.net',
@@ -72,7 +72,7 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
-		),
+		),*/
 
 		/*'mysql' => array(
 			'driver'    => 'mysql',
@@ -84,6 +84,17 @@ return array(
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
 		),*/
+
+	'mysql' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'mintwas1_mint',
+			'username'  => 'root',
+			'password'  => '',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_general_ci',
+			'prefix'    => '',
+		),
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',

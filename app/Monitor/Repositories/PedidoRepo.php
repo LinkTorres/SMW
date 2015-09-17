@@ -26,10 +26,16 @@ class PedidoRepo
 	}
 	
 	
-	public function find ($id,$slug)
+	public function find($id,$slug)
 	{
-		$pedidos= Pedido::find($id);
+		$pedidos= Pedido::where('id', '=', $id )->get();
 		return $pedidos;
+	}
+
+	public function updateStatus($id,$status)
+	{
+		//Pedido::where('id', 1)
+        //->update('estatus_id' => $status);
 	}
 
 	

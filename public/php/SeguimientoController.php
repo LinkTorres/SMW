@@ -88,6 +88,7 @@ class SeguimientoController extends conexion{
 
 //Cambia el estatus a recolectado y el precio del pedido
 if ($_GET['pdg']==1){
+	
 	//echo "<pre>".print_r($_POST,true)."</pre>";
 	$respuesta = array();
 	$control = new SeguimientoController();

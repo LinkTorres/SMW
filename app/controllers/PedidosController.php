@@ -5,6 +5,7 @@ use Monitor\Repositories\ServicioRepo;
 use Monitor\Repositories\RutaRepo;
 use Monitor\Repositories\HorarioRepo;
 use Monitor\Manager\RegisterLavadoManager;
+use Monitor\Entities\Pedido;
 
 class PedidosController extends \BaseController {
 
@@ -168,11 +169,11 @@ class PedidosController extends \BaseController {
 
 	public function cancelarRecoleccion($id)
 	{
-		$pedido = Pedido::find($id);
+		Log::info("Pedido ".$id);
+		//$pedido = $this->pedidoRepo->find($id,$id);
+		//Log::info("Pedido ".$pedido);
 
-		$pedido->estatus_id = (int)'8';
-
-		$pedido->save();
+		
 
 		return Redirect::route('recolector');
 

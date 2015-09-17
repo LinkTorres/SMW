@@ -382,8 +382,9 @@ console.log("url:" +direccion+" ");
 }
 function peticiong(datos,opc)//mantener=cache
 {
+	console.log("Estoy aqui");
 	var direccion="php/SeguimientoController.php?pdg="+opc;
-	console.log('direccion' + direccion + "\n"+ datos);
+	console.log('direccion ' + direccion + "\n"+ datos);
 
 	$.ajax({
 		type: "POST",
