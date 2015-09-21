@@ -65,6 +65,11 @@ class OrdenController extends \BaseController {
 		
 		if($valido)
 		{
+
+			$id = DB::table('clientes')->where('correo',$data['correo'])->pluck('correo')->count();
+			Log::info("id ".$id);
+			if (!($id>0))
+			{
 			Log::info($data);
 			$cliente= new Cliente();
 			$cliente->nombre	=$data['nombre'];
@@ -74,6 +79,7 @@ class OrdenController extends \BaseController {
 			$cliente->correo	=$data['correo'];
 			$cliente->ruta_id	=$data['colonia_e'];
 			$cliente->save();
+			}
 			//Borrar estas lineas
 					//$cliente->id= 151;
 			//*************

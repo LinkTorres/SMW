@@ -177,7 +177,7 @@ line-height:0
 
 <div class="text-center">
   <a class="btn btn-danger" data-toggle="modal" href='#mdalcancel'>Cancelar</a>
-<a class="btn btn-warning" data-toggle="modal" href='#mdalEd'>Editar Orden</a>
+
 <a class="btn btn-success" data-toggle="modal" href='#mdalFE'>Finalizar Orden</a>
 <div class="modal fade" id="mdalFE" style="display:none">
   <div class="modal-dialog">
@@ -226,8 +226,8 @@ line-height:0
       <div class="modal-body">
         
          <div class="control-group">
-                            {{  Form::label('fecha_recoleccion', 'Fecha de Recolección') }}
-                              {{  Form::text('fecha_recoleccion',null, ['class' => 'form-control','placeholder' => 'Fecha de Recolección', 'data-date-format' => 'dd-mm-yyyy'])}}
+                            {{  Form::label('fecha_recoleccion2', 'Fecha de Recolección') }}
+                              {{  Form::text('fecha_recoleccion',$info['recoleccion'], ['class' => 'form-control','placeholder' => 'Fecha de Recolección', 'data-date-format' => 'dd-mm-yyyy','data-role' =>'date', 'data-inline' => 'true'])}}
                               {{ $errors->first('fecha_recoleccion','<p class="message_error">:message</p>') }}
                               {{ Form::hidden('iptFR', NULL, array('id' => 'iptFR') ) }}
                         </div>
@@ -278,48 +278,7 @@ line-height:0
 <script>
 
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-});
 
-   $('#fecha_entrega').datepicker({
-      changeYear: false,
-      minDate: "0D",
-      maxDate: "1M 10D",
-      onSelect: function(selectedDate) {
-        console.log('fecha ' + selectedDate);
-         $('#hora_entrega').html('');
-        formato = selectedDate.split("/");
-        fecha = (formato[2].length>3)? formato[2] +"-" + formato[1] +"-" +formato[0] : formato[2] +"-" + formato[0] +"-"+ formato[1];
-        $('#iptFR').val(fecha);
-        console.log("Valor: "+ fecha);
-        onfocus="#fecha_recoleccion";
-           $.ajax({
-              type:'POST',
-              dataType: 'JSON',
-              url: 'disponible',
-              data: {fecha: fecha},
-                success :
-                function(data) 
-                {   
-                  console.log("datos: " + data);
-                  for (var i in data) {
-                        $('#hora_entrega').append('<option value="'+data[i]['id']+'">'+data[i]['hora']+'</option>');  
-                        console.log( i + ' - '+data[i]['hora']);
-
-                      }
-                },
-              complete: 
-                  function(){
-                    //$(carga).hide('slow');
-                  }
-
-            });
-
-       }
-    });
-  
-  });
 
 </script>
     

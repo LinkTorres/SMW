@@ -141,7 +141,7 @@
           <div class="row">
 
 
-        
+                        
                         
 
                         {{ Form::open(['route'=>'create.orden', 'method'=>'POST', 'role' => 'form','novalidate', 'id'=>'contact-form',  'class'=>'form-horizontal']) }}    
@@ -215,7 +215,7 @@
                         </div>  
                         <div class="control-group">
                           {{  Form::label('descripcion', 'Requerimientos Especiales') }}
-                          {{ Form::textarea('descripcion', null, ['class' => 'form-control','size' => '30x3' ])  }}
+                          {{ Form::textarea('descripcion', null, ['class' => 'form-control','size' => '30x3', 'placeholder' => 'Si deseas algun (Almidon, suavizante, camisas dobladas o en gancho) puedes especificarlo aqui, si el lugar de entrega es distinto al de recolección favor de especificarlo.'])  }}
                         </div>
                        
                         <div class="form-actions">

@@ -11,7 +11,8 @@ class RegisterOrderManager extends BaseManager
 				/*
 				'correo'		=> 'required|email|unique:clientes,correo,'. $this->entity->id,*/
 				'correo' => 'required',
-				'fecha_recoleccion'  		=> 'required'
+				'fecha_recoleccion'  		=> 'required',
+				'hora_recoleccion' => 'required'
 
 
 				];
