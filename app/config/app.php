@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -124,7 +124,7 @@ return array(
 
 		//Vendors
 		'Way\Generators\GeneratorsServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
+		//'Barryvdh\Debugbar\ServiceProvider',
 
 
 

@@ -173,7 +173,9 @@ class PedidosController extends \BaseController {
 		//$pedido = $this->pedidoRepo->find($id,$id);
 		//Log::info("Pedido ".$pedido);
 
-		
+		DB::table('pedidos')
+            ->where('ticket_id',$id)
+            ->update(array('estatus_id' => 8));
 
 		return Redirect::route('recolector');
 
@@ -181,15 +183,21 @@ class PedidosController extends \BaseController {
 
 	public function cancelarEntrega($id)
 	{
-		$pedido = Pedido::find($id);
-
-		$pedido->estatus_id = (int)'9';
-
-		$pedido->save();
+		DB::table('pedidos')
+            ->where('ticket_id',$id)
+            ->update(array('estatus_id' => 9));
 
 		return Redirect::route('recolector');
 
 	}
 
+ 	public function cancelarOrden($id)
+ 	{
+ 		DB::table('pedidos')
+            ->where('ticket_id',$id)
+            ->update(array('estatus_id' => 7));
+
+		return Redirect::route('recolector');
+ 	}
 
 }

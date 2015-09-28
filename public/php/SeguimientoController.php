@@ -47,7 +47,8 @@ class SeguimientoController extends conexion{
 	public function setAsignaEntrega($datos)
 	{
 		$estatus='5';
-		$mysql="UPDATE pedidos SET id_recolector_r='$datos[recolector]', estatus_id='$estatus' WHERE ticket_id='$datos[iptP]'";
+
+		$mysql="UPDATE pedidos SET id_recolector_r='$datos[recolector]', estatus_id='$estatus' WHERE ticket_id='$datos[iptT]'";
 		$r['t']=$this->ExecuteNonQuery($mysql);
 		
 		$mysql="UPDATE	tickets SET estatus_id='$estatus' WHERE id='$datos[iptT]'";	

@@ -37,7 +37,7 @@
     {{ HTML::script('asset/js/highcharts.js') }}
     {{ HTML::script('asset/js/highcharts-3d.js') }}
     {{ HTML::script('asset/js/jquery.dataTables.min.js') }}
-
+    
 
   
     

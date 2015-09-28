@@ -16,6 +16,7 @@ Recepción de Ordenes
 @section('contenido')
    
 <div class="row">
+    {{ HTML::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') }}
     <center><h2>Status</h2></center>
     <div class="col-md-2 btn btn-danger">Orden Levantada</div>
     <div class="col-md-2 btn btn-default">En Ruta-Recoleccion</div>
@@ -42,8 +43,7 @@ Recepción de Ordenes
                 <th>Recoger</th>
                 <th>Entrega</th>
                 <th>Estatus</th>
-                
-
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -110,17 +110,44 @@ Recepción de Ordenes
                     @foreach($pedido->fechaRecoleccion as $fecha)
                         {{ date("d-M-Y",strtotime($fecha ->fecha)) }} a las
                         {{ $fecha->hora->hora }}
-                        s
                          <?php 
                         $turno = (int) $fecha->hora->id;
-                       
 
                     ?> 
 
                     @endforeach
                     <br>
-                     @if($pedido->estatus_id===1)
-                        <a class="btn btn-danger" data-toggle="modal" href='#modal{{ $modal_id }}'>Asignar Recolector</a>
+                     
+                </td>
+
+                <td>
+                    @foreach ($pedido->entrega as $entrega)
+                        {{ $entrega->ruta }}<br>
+                    @endforeach        
+                    
+                    @foreach($pedido->fechaEntrega as $fecha)
+                        {{ date("d-M-Y",strtotime($fecha ->fecha)) }} a las
+                        {{ $fecha->hora->hora }}
+
+                    @endforeach
+                    
+                    @foreach ($pedido->entregador as $recolector)
+                        {{ $recolector->nombre }}<br>
+                    @endforeach       
+                </td>
+
+                <td>
+                    @foreach ($pedido->statusOrden   as $statu)
+                       {{ $statu->status}}
+
+
+
+                        
+
+                    @endforeach
+                </td> <td>
+                @if($pedido->estatus_id===1)
+                        <a title="Asignar Recolector" data-toggle="modal" href='#modal{{ $modal_id }}'><i class="fa fa-bicycle fa-2x" style="color:#3468F7;"></i></a>
                         {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frm_'.$modal_id]) }}
                         <div class="modal fade" id="modal{{ $modal_id }}">
                             <div class="modal-dialog">
@@ -188,34 +215,13 @@ Recepción de Ordenes
                         {{ Form::hidden('iptP', $p_id, '' ) }}
                         {{ Form::close() }}
                     @endif
-                </td>
 
-                <td>
-                    @foreach ($pedido->entrega as $entrega)
-                        {{ $entrega->ruta }}<br>
-                    @endforeach        
-                    
-                    @foreach($pedido->fechaEntrega as $fecha)
-                        {{ date("d-M-Y",strtotime($fecha ->fecha)) }} a las
-                        {{ $fecha->hora->hora }}
-
-                    @endforeach
-                    
-                    @foreach ($pedido->entregador as $recolector)
-                        {{ $recolector->nombre }}<br>
-                    @endforeach       
-                </td>
-
-                <td>
-                    @foreach ($pedido->statusOrden   as $statu)
-                       {{ $statu->status}}
-
-                        @if($statu->id===3)
+                    @if($pedido->estatus_id===3)
                         {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frme_'.$modal_id]) }}
 
-                           <p class="text-center">
-                            <a class="btn btn-primary" data-toggle="modal" href='#modal{{ $modal_id }}'>Recibir en Establecimiento</a>
-                            </p>
+                           
+                            <a title="Recibir en Establecimiento" data-toggle="modal" href='#modal{{ $modal_id }}'><i class="fa fa-home fa-2x" style="color:#49AD53;"></i></a>
+                            
                                 <div class="modal fade" id="modal{{ $modal_id }}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -286,10 +292,11 @@ Recepción de Ordenes
 
                             {{ Form::close() }}
 
-                        @endif
+                
+                @endif
+                @if($pedido->estatus_id===4)
 
-                        @if($pedido->estatus_id===4)
-                        <a class="btn btn-info" data-toggle="modal" href='#modal{{ $modal_id }}'>Asignar Recolector</a>
+                        <a title="Asignar Recolector" data-toggle="modal" href='#modal{{ $modal_id }}'><i class="fa fa-bicycle fa-2x" style="color:green;"></i></a>
                         {{ Form::open(['', '', 'role' => 'form','novalidate', 'id'=>'frm_e'.$modal_id]) }}
                         <div class="modal fade" id="modal{{ $modal_id }}">
                             <div class="modal-dialog">
@@ -344,7 +351,34 @@ Recepción de Ordenes
                                        
                                         <div class="form-group">
                                             {{  Form::label('recolector', 'Recolector') }}
-                                            {{ Form::select('recolector',$recolectores,null,['class'=> 'input-sm','data-val' => $modal_id, 'disabled'],1) }}
+                                            @if ($pedido->id_colonia_r < 4)
+                                                   @if ($turno <11)
+                                                    
+                                                        {{ Form::select('recolector',$recolectores,1,['class'=> 'input-sm','data-val' => $modal_id,' disabled'],1) }}
+                                                    
+                                                    @else
+                                                    
+                                                        {{ Form::select('recolector',$recolectores,2,['class'=> 'input-sm', 'data-val' => $modal_id,' disabled'],1) }}
+                                                    
+                                                    
+                                                    @endif
+
+                                                
+                                            @else
+                                                 
+                                                    @if($turno <11)
+                                                    
+                                                       {{ Form::select('recolector',$recolectores,3,['class'=> 'input-sm','data-val' => $modal_id, ' disabled'],1) }}
+                                                    
+                                                    
+                                                    @else
+                                                    
+                                                        {{ Form::select('recolector',$recolectores,4,['class'=> 'input-sm','data-val' => $modal_id, ' disabled'],1) }}
+                                                    
+                                                    @endif
+
+                                                
+                                            @endif        
                                             <a href="#" onclick="habilitarOtro({{ $modal_id }});return false;">Otro</a>
                                             <script type="text/javascript">
                                                 function  habilitarOtro(id) {
@@ -360,7 +394,7 @@ Recepción de Ordenes
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cambiaStatus({{ $modal_id}},5)">Asignar</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cambiaStatus({{ $modal_id }},5)">Asignar</button>
                                     </div>
                                 </div>
                             </div>
@@ -370,10 +404,11 @@ Recepción de Ordenes
 
                         {{ Form::close() }}
                     @endif
-
-                    @endforeach
-                </td>
+                @if($pedido->estatus_id===1 || $pedido->estatus_id===2 )
+               <a href="pedidoOrdenCancelada/{{ $modal_id }}" title="Cancelar Orden">
+                <i class="fa fa-trash-o fa-2x" style="color:red;"></i></a>
                 
+                @endif</td>
             </tr>
 
         @endforeach

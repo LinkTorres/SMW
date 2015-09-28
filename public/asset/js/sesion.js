@@ -208,10 +208,10 @@ var obj="#tr_"+obtener_valor('#iptPos');
 function cambiaStatus(pos,estatus){
 	var frm="";
 
-	console.log('Cambiare el status');
+	console.log('Cambiare el statusss');
 
 	 $('[data-val='+pos+']').prop( "disabled", false );
-
+	console.log($('[data-val='+pos+']'));
 
 	switch(estatus)
 	{
