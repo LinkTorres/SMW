@@ -20,7 +20,12 @@
      
      {{ HTML::style('asset/css/jquery-ui.min.css') }}
      {{ HTML::style('asset/css/jquery-ui.structure.css') }}
+     {{ HTML::style('https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css') }}
 
+<style>
+  .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+  .toggle.ios .toggle-handle { border-radius: 20px; }
+</style>
 
 
 
@@ -34,7 +39,7 @@
     {{ HTML::script('asset/js/bootstrap.min.js') }}
     {{ HTML::script('asset/js/jquery-ui.min.js') }}
     {{ HTML::script('asset/js/app/orden.js') }}
- 
+    {{ HTML::script('https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js') }}
 
     
 
@@ -128,9 +133,9 @@
                               <p>
                               <span>Precios</span>
                               
-                              <br> Lavado: $140. 4 Kilos.
-                              <br> Planchado: $135 Docena.
-                              <br> Paquete 1: $180.
+                              <br> Lavado: $140. 4 Kilos. $35 Kilo Adicional.
+                              <br> Planchado: $135 Docena. Pieza Adicional: $12.
+                              <br> Pieza lavado y planchado: $15.
                             </p>
                     </div>
                 </DIV>
@@ -183,8 +188,15 @@
                            {{ $errors->first('calles','<p class="message_error">:message</p>') }}
 
                         </div>    
-                      
+                        <div>
+                        <br>
+                        <p>¿Te entregaremos en la misma dirección?  <input type="checkbox" id="checkDir" checked data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="success" data-offstyle="danger" data-style="ios"></p>
+                        </div>
 
+                        <div id="dirEntrega" class="hidden">
+                            {{  Form::label('entrega', 'Dirección de entrega') }}
+                           {{  Form::text('entrega',null, ['class' => 'form-control','required'])}}
+                        </div>
                         <div class="control-group">
                             <div class="controls">
                             {{  Form::label('colonia_e', 'Colonia') }}
@@ -234,6 +246,18 @@
            <!-- parallax quote begins -->
        <!-- services begins -->
   
+<script type="text/javascript">
+  $("#checkDir").change(function() {
+    if(this.checked) {
+        //Do stuff
+        $( "#dirEntrega" ).addClass( "hidden" );
+    }
+    else{
+      $( "#dirEntrega" ).removeClass( "hidden" );
+    }
+});
+</script>
+
 
 <script type="text/javascript">
   $(function () {

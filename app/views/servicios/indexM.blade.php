@@ -40,8 +40,8 @@
 							<td>${{ number_format($servicio->minimo->extra,2) }}</td>	
 
 							@else
-								Lavado y planchado</td>
-							<td> - </td>	
+								1 Docena</td>
+							<td>$15</td>	
 							
 							@endif	
 							</td>

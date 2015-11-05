@@ -95,9 +95,65 @@ class HomeController extends \BaseController {
 	
 	}
 	public function principal(){
+		$data = array(1,2,3);
+		Mail::send('correo2', $data, function($message)
+		{
+		    $message->from('noreply@mintwash.com.mx', 'Mint Wash');
+
+		    $message->to('et_3001@hotmail.com');
+
+		    
+		});
 		return Redirect::away('http://mintwash.com.mx/', 301);
 	
 	}
+
+	public function ordenMail($id){
+		
+
+		$ticket = DB::table('tickets')->where('id',$id)->first();
+		$cliente =  DB::table('clientes')->where('id',$ticket->cliente_id)->first();
+		$pedido = DB::table('pedidos')->where('ticket_id',$id)->first();
+		$fechaRecoleccion = DB::table('disponibilidads')->where('id',$pedido->id_recoleccion)->first();
+		$fechaEntrega = DB::table('disponibilidads')->where('id',$pedido->id_entrega)->first();
+		$servicio = DB::table('servicios')->where('id',$pedido->servicio_tipo_id)->first();
+		$horaRecoleccion = DB::table('horas')->where('id',$fechaRecoleccion->hora_id)->first();
+		try{
+			$horaEntrega = DB::table('horas')->where('id',$fechaEntrega->hora_id)->first();}
+		catch(Exception $e){
+
+		}
+		$colonia = DB::table('rutas')->where('id',$cliente->ruta_id)->first();
+
+		$data = array('cliente' => $cliente->nombre, 
+							'ticket'=> $ticket->id,
+							'creado'=>date('d-m-Y H:i'),
+							'recoleccion'=> $fechaRecoleccion->fecha,
+							'direccion'=>   $cliente->direccion,
+							'servicio'=>$servicio->servicio,
+							'hora_recoleccion' =>$horaRecoleccion->hora,
+							'hora_entrega' =>$horaEntrega->hora,
+							'fecha_entrega' => $fechaEntrega->fecha,
+							'colonia' => $colonia->ruta,
+							'especificacion' => $pedido->descripcion
+
+							);
+
+
+		Mail::queue('correo2', $data, function($message) use ($cliente)
+		{
+		    $message->from('noreply@mintwash.com.mx', 'Mint Wash');
+
+		    $message->to($cliente->correo);
+
+		    $message->subject('Orden Realizada');
+
+		    
+		});
+		return Redirect::away('http://mintwash.com.mx/', 301);
+	
+	}
+
 	public function usuario(){
 		return View::make('index');
 	

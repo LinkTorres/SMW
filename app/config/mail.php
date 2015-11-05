@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'mintwash.com.mx',
+	'host' => 'smtp.webfaction.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return array(
 	|
 	*/
 
-	'port' => 26,
+	'port' => 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'sistemas@mintwash.com.mx', 'name' => 'Sistema'),
+	'from' => array('address' => 'noreply@mintwash.com.mx', 'name' => 'Mint Wash'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => 'ssl',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'sistemas@mintwash.com.mx',
+	'username' => 'mintwashnoreply',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => '@mintwash.com.mx',
+	'password' => 'm1ntw4sh',
 
 	/*
 	|--------------------------------------------------------------------------

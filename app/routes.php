@@ -19,6 +19,7 @@ Route::get('/', function()
 });
 
 Route::get('principal', ['as'=> 'principal','uses'=>'HomeController@principal']);
+Route::get('ordenMail/{id}', ['as'=> 'ordenMail','uses'=>'HomeController@ordenMail']);
 Route::get('orden',['as'=> 'orden','uses'=>'HomeController@orden']);
 
 

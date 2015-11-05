@@ -174,7 +174,7 @@ line-height:0
     </div>
   </div>
 </div>
-
+<div>Te recordamos que nuestro repartidor no trae mas de 200 pesos en cambio.</div>
 <div class="text-center">
   <a class="btn btn-danger" data-toggle="modal" href='#mdalcancel'>Cancelar</a>
 
@@ -190,8 +190,7 @@ line-height:0
         Tu orden esta completa, en unos momentos recibiras un correo con la información.
       </div>
       <div class="modal-footer">
-       
-         {{ HTML::link('principal', 'Aceptar', array('class' => 'btn btn-primary')); }}
+          <a href="ordenMail/{{ $info['ticket'] }}" class="btn btn-primary">Aceptar</a>
       </div>
     </div>
   </div>

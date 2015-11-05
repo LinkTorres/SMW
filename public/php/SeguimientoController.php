@@ -17,10 +17,11 @@ class SeguimientoController extends conexion{
 	$r = array();
     $piezas = ($datos['piezas'] > 0)? $datos['piezas']: 0;
     $kilos = ($datos['kilos'] > 0)? $datos['kilos']  :0;
+    $orden = $datos['nota'];
     $monto=$datos['iptPK']+$datos['iptPP'];
     $estatus = 3;
 
-		$mysql="UPDATE pedidos SET piezas='$piezas', kilos='$kilos', estatus_id='$estatus' WHERE id='$datos[iptI]'";
+		$mysql="UPDATE pedidos SET piezas='$piezas', kilos='$kilos', estatus_id='$estatus', orden='$orden' WHERE id='$datos[iptI]'";
 		$r['p']=$this->ExecuteNonQuery($mysql);
 
 		$r['sql1']=$mysql;

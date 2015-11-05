@@ -28,7 +28,7 @@ $tipo_pago;
      {{ HTML::style('asset/css/jquery-ui.min') }}
      {{ HTML::style('asset/css/jquery-ui.structure.css') }}
 
-
+{{ HTML::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') }}
 
 
 
@@ -63,7 +63,7 @@ $tipo_pago;
 
    <nav class="navbar menta navbar-fixed-top">
     <div class="container">  
-      <div class="navbar-right">
+      <div class="navbar-center">
         <img src="asset/img/logo.png" alt="MintWash" class="img-responsive ">
       </div> 
     </div>
@@ -186,7 +186,7 @@ $tipo_pago;
                 </address>
             
 
-                      @foreach ($pedido->statusOrden   as $statu)
+                      @foreach ($pedido->statusOrden as $statu)
 
                       @if($statu->id===2)
                          <p class="text-center">
@@ -203,7 +203,7 @@ $tipo_pago;
                                  <div class="modal-content">
                                    <div class="modal-header">
                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                     <h4 class="modal-title">Detalles de la Orden</h4>
+                                     <h4 class="modal-title">Detalles de la Orden #{{ $modal_id }}</h4>
                                    </div>
                                    <div class="modal-body">
                                    <form id='frm_{{ $modal_id }}'>
@@ -211,61 +211,52 @@ $tipo_pago;
                                      <div class="table-responsive" id="tbl_{{ $modal_id }}">
                                       <input type="hidden" name="iptServCom" id="iptServCom{{ $modal_id }}" value="0">
                                       <div class="table-responsive">
-                                        <table class="table table-hover">
-                                          <thead>
-                                            <tr>
-                                              <th>Servicio</th>
-                                              <th>Paquete Completo 
-                                              @if($id_servicio===3)
-                                              <input type="checkbox" id="iptSC{{ $modal_id }}" checked onclick="adicional2('{{ $modal_id }}')"></th>                                                
-                                              @else
-                                                <input type="checkbox" id="iptSC{{ $modal_id }}" onclick="adicional2('{{ $modal_id }}')"></th>
-                                              @endif
-                                            </tr>
-                                          </thead>
+                                        <table class="table table-striped">
                                           <tbody>
-                                            <tr>
-                                              <td colspan="2"><label id="lblTipoS{{ $modal_id }}">{{ $tipo }}</label></td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <table class="table-bordered table-striped table-condensed">
-                                        <thead>
+                                          <tr class="success"><td colspan="2"><center><label id="lbl_Costo{{ $modal_id }}"></label></center></td></tr>
                                           <tr>
-                                            <th class="numeric">Costo</th>
-                                            <th class=""><label id="lbl_Costo{{ $modal_id }}"></label></th>
+                                            <td>#Nota:</td>
+                                            <td><input id="nota{{ $modal_id}}"  name="nota" class="form-control" type="number" placeholder="Introduce número de nota"></td>
+                                            
                                           </tr>
-                                        </thead>
-                                        <tbody>
+                                          <tr><td colspan="2" style=" font-weight:bold;">Lavado</td></tr>
                                           <tr>
-                                            <td data-title="Kilos">Kilos para lavar</td>
+                                            <td data-title="Kilos">Kilos:</td>
                                             <td>
                                              
-                                            <input class="form-control" type="text" id="kilos{{ $modal_id}}"  name="kilos" onkeypress='return solonumeros(event);' onkeyup="costoReco(1,{{ $modal_id }})" placeholder="Introduce los kgs a lavar"></td>
+                                            <input class="form-control" type="text" id="kilos{{ $modal_id}}"  name="kilos" onkeyup="costoReco(1,{{ $modal_id }})" placeholder="Introduce los kgs a lavar"></td>
                                           </tr>
+                                          <tr><td colspan="2" style=" font-weight:bold;">Planchado</td></tr>
                                           <tr>
-                                           <td data-title="Piezas">Piezas para planchar</td>
+                                           <td data-title="Piezas">Piezas</td>
                                            <td>
 
-                                           <input class="form-control" type="text" id="piezas{{ $modal_id }}" name="piezas" onkeypress='return numeros(event);' onkeyup='costoReco(2,{{ $modal_id }})'placeholder="Introduce las piezas a planchar ">
+                                           <input class="form-control" type="text" id="piezas{{ $modal_id }}" name="piezas" onkeyup="costoReco(2,{{ $modal_id }})" placeholder="Piezas a planchar ">
                                            <input type="hidden" id="iptPK{{ $modal_id }}" name="iptPK">
                                            <input type="hidden" id="iptPP{{ $modal_id }}" name="iptPP">
+                                           <input type="hidden" id="iptPL{{ $modal_id }}" name="iptPP">
                                            <input type="hidden" value="{{ $pedido->id }}" name="iptI">
                                            <input type="hidden" value="{{ $modal_id }}" name="iptT">
                                            <input type="hidden" value="0" id="iptTotal{{ $modal_id }}" name="iptTotal">
 
-
-
-
                                            </td>
 
-                                          </tr> 
+                                          </tr>
+                                          <tr><td colspan="2" style=" font-weight:bold;">Lavado y Planchado</td></tr>
+                                          <tr>
+                                            <td data-title="Piezas">Piezas</td>
+                                           <td>
+
+                                           <input class="form-control" type="text" id="lp{{ $modal_id }}" name="lp"  onkeyup="costoReco(3,{{ $modal_id }})" placeholder="piezas l y p ">
+                                           </td>
+                                          </tr>
+                                          <tr><td colspan="2" style=" font-weight:bold;">Especificaciones</td></tr>
                                           <tr>
                                             <td colspan="2"><textarea id="requerimientos" name="requerimientos" style="width:100%;">{{ utf8_encode($pedido->descripcion) }}</textarea></td>
                                           </tr>
                                         </tbody>
                                       </table>
+                                      </div>
                                     </div>  
                                    </form>
                                    </div>
@@ -307,7 +298,7 @@ $tipo_pago;
                                       <tbody>
                                        @if($id_servicio==3)
                                           <tr>
-                                            <td>Paquete Completo (Lavado y Planchado 1 docena)</td>
+                                            <td>Piezas Lavado y Planchado</td>
                                             <td><span class="glyphicon-class glyphicon glyphicon-ok"></span></td>
                                           </tr>
                                        @endif

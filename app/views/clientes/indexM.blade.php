@@ -43,7 +43,7 @@
 						</tr>
 						<tr>
 							<td>Correo</td>
-							<td>{{ $cliente->correo }}</td>
+							<td><a href="mailto:{{ $cliente->correo }}">{{ $cliente->correo }}</a></td>
 						</tr>
 						<tr>
 							<td>Fecha de Nacimiento</td>

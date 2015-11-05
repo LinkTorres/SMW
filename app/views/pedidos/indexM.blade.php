@@ -37,7 +37,7 @@ Recepción de Ordenes
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
-                <th>Ticket</th>
+                <th>Ticket - Orden</th>
                 <th>Servicio</th>
                 <th>Cliente</th>
                 <th>Recoger</th>
@@ -76,7 +76,7 @@ Recepción de Ordenes
 
                     ?>   
                 <td>
-                {{ $pedido->ticket_id }}
+                {{ $pedido->ticket_id }} - {{ $pedido->orden }}
                 <?php $modal_id=$pedido->ticket_id; ?>
                 </td>
 

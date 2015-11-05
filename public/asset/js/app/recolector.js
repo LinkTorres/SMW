@@ -125,11 +125,6 @@ function estableceFechas(){
         	$("#iptFE").datepicker('mm/dd/yyyy'));
 }
 
-function cambiaStatus(ticket,status){
-
-//
-}
-
 function mostrarDiv(div){
 	$(div).removeClass('hide');
 }
@@ -148,7 +143,7 @@ function costoReco(tipo,pos) {
 	total=0;
 
 	
-	servicio_completo= $('#iptSC'+pos).prop("checked") ? 180 : 0;
+	
 	switch(tipo)
 	{	
 		
@@ -167,7 +162,7 @@ function costoReco(tipo,pos) {
 
 			}
 
-				total=  parseInt(obtener_valor('#iptPP'+pos)) + precio + servicio_completo;
+				total=  parseInt(obtener_valor('#iptPP'+pos)) + precio;
 				lavado=1;
 			
 
@@ -179,7 +174,7 @@ function costoReco(tipo,pos) {
 			servicio = 135;
 			piezas = obtener_valor('#piezas'+pos);
 			minimo = 12;
-			adicional=10;
+			adicional=12;
 			if(piezas>0){
 
 				precio = (piezas>=minimo)?  servicio + ((piezas - minimo) * adicional ) : servicio;
@@ -190,25 +185,37 @@ function costoReco(tipo,pos) {
 			{
 				$('#iptPP'+pos).val(0);
 			}
-				total= parseInt(obtener_valor('#iptPK'+pos)) + precio + servicio_completo;
+				total= parseInt(obtener_valor('#iptPK'+pos)) + precio;
 				console.log('Costo '+ precio + ' Piezas ' + piezas + "total "+ total);
 				planchado=1;
 		break;
 
 		case 3:
-				total=servicio_completo;
-				volumen = obtener_valor('#kilos'+pos);
-				console.log('Kilos '+volumen);
-				if(volumen>0) costoReco(2,pos);
-				piezas = obtener_valor('#piezas'+pos);
-				console.log('piezas '+piezas);
-				if(piezas>0) costoReco(3,pos);
+				servicio = 180;
+			piezas = obtener_valor('#lp'+pos);
+			minimo = 12;
+			adicional=15;
+			if(piezas>0){
+
+				precio = (piezas>=minimo)?  servicio + ((piezas - minimo) * adicional ) : servicio;
+				$('#iptPL'+pos).val(precio);
+				
+			}
+			else
+			{
+				$('#iptPL'+pos).val(0);
+			}
+				total= parseInt(obtener_valor('#iptPK'+pos)) + precio;
+				console.log('Costo '+ precio + ' Piezas ' + piezas + "total "+ total);
+				planchado=1;
 
 
 		break;
 		
 
 	}
+
+	total = parseInt(obtener_valor('#iptPK'+pos)) + parseInt(obtener_valor('#iptPP'+pos)) + parseInt(obtener_valor('#iptPL'+pos)) ;
 		
 	if (total>0){
 		$('#lbl_Costo'+pos).text('Costo $'+total.toFixed(2)).removeClass('hide'); 
@@ -271,38 +278,69 @@ function servicioCompleto (pos) {
 
 function costoTotal25(pos){
 
-				servicio_completo= $('#iptSC'+pos).prop("checked") ? 180 : 0;
+				console.log('Pos' +pos);
+	servicio=0;
+	volumen=0;
+	precio=0;
+	minimo=0;
+	lavado=0;
+	planchado=0;
 
+	total=0;
+
+	
+	
+	
+			servicio = 35;
+			volumen = obtener_valor('#kilos'+pos);
+			minimo = 4;
+			if(volumen>0){
+				precio = (volumen>=minimo)? servicio * volumen : servicio * minimo;
+				$('#iptPK'+pos).val(precio);
+				console.log('Costo '+ precio.toFixed(2) + ' Kilo ' + volumen + "piezas "+ total);
+			}
+			else{
+				precio=0;
+				$('#iptPK'+pos).val(0);
+
+			}
+			
+
+			servicio = 135;
+			piezas = obtener_valor('#piezas'+pos);
+			minimo = 12;
+			adicional=12;
+			if(piezas>0){
+
+				precio = (piezas>=minimo)?  servicio + ((piezas - minimo) * adicional ) : servicio;
+				$('#iptPP'+pos).val(precio);
 				
-
-				//Lavar
-
-				volumen = obtener_valor('#kilos'+pos);
-				if(volumen==0)
-					precioVolumen=0;
-				else
-					precioVolumen = (volumen>=4)? 35 * volumen : 35 * 4;
-				console.log('Son Kilos '+volumen + " Precio "+precioVolumen);
+			}
+			else
+			{
+				$('#iptPP'+pos).val(0);
+			}
 				
+	
 
-				//Planchar
-				piezas = obtener_valor('#piezas'+pos);
+	
+				servicio = 180;
+			piezas = obtener_valor('#lp'+pos);
+			minimo = 12;
+			adicional=15;
+			if(piezas>0){
 
-				minimo = 12;
-				adicional=10;
-				servicio = 135;
-				if(piezas==0)
-					precioPiezas=0;
-				else
-					precioPiezas = (piezas>=minimo)?  servicio + ((piezas - minimo) * adicional ) : servicio;
+				precio = (piezas>=minimo)?  servicio + ((piezas - minimo) * adicional ) : servicio;
+				$('#iptPL'+pos).val(precio);
 				
-				console.log('Son piezas '+piezas+" Precio "+precioPiezas);
-				
-				total=servicio_completo+precioPiezas+precioVolumen;
-				console.log('Total: '+total);
+			}
+			else
+			{
+				$('#iptPL'+pos).val(0);
+			}
 
-				$('#lbl_Costo'+pos).text('Costo $'+total.toFixed(2))
-				$('#iptTotal'+pos).val(total);
+	total = parseInt(obtener_valor('#iptPK'+pos)) + parseInt(obtener_valor('#iptPP'+pos)) + parseInt(obtener_valor('#iptPL'+pos)) ;
+	$('#iptTotal'+pos).val(total);
 	
 //
 }
@@ -377,6 +415,7 @@ function peticiona(opc, datos){
 		}).fail(function() {
 			alert( "error" );
 		});
+console.log("Ya envie el cambio" + datos);
 console.log("url:" +direccion+" ");
 
 }

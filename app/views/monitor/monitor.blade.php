@@ -71,9 +71,9 @@
             <li>  {{ HTML::link('zonas', 'Zonas', array('class' => 'list-group-item')); }}                      </li>
             <li>  {{ HTML::link('recolectors', 'Recolectores', array('class' => 'list-group-item')); }}                      </li>
             <li>  {{ HTML::link('servicios', 'Servicios', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('lavado', 'Lavado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
+            <!--<li>  {{ HTML::link('lavado', 'Lavado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
             <li>  {{ HTML::link('planchado', 'Planchado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('pedidos', 'Pedidos', array('class' => 'list-group-item')); }}                      </li>
+            --><li>  {{ HTML::link('pedidos', 'Pedidos', array('class' => 'list-group-item')); }}                      </li>
             <li>  {{ HTML::link('logout', 'Salir', array('class' => 'list-group-item')); }}                      </li>
            
         </ul>

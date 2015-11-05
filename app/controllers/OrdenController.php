@@ -66,7 +66,7 @@ class OrdenController extends \BaseController {
 		if($valido)
 		{
 
-			$id = DB::table('clientes')->where('correo',$data['correo'])->pluck('correo')->count();
+			$id = DB::table('clientes')->where('correo',$data['correo'])->count();
 			Log::info("id ".$id);
 			if (!($id>0))
 			{
@@ -86,9 +86,9 @@ class OrdenController extends \BaseController {
 			$pedido = new Pedido();
 			
 			//Ticket
-
+			$user = DB::table('clientes')->where('correo',$data['correo'])->first();
 			$ticket= $this->ticketsRepo->newTicket();
-			$ticket->cliente_id=$cliente->id;
+			$ticket->cliente_id=$user->id;
 			$ticket->estatus_id=1;
 			$ticket->pago=$data['pago'];
 			$ticket->save();
@@ -198,15 +198,15 @@ class OrdenController extends \BaseController {
 			
 			$id_recolector=$this->horarioRepo->agregaHorarioRecoleccion($pedido->id, $id_recoleccion, $pedido->id_colonia_r,$data['hora_recoleccion'] );
 			$this->horarioRepo->asignaRecolectorE($pedido->id,$id_recolector);
-			$info = array('cliente' => $cliente->nombre, 
+			$info = array('cliente' => $data['nombre'], 
 							'ticket'=> $ticket->id,
-							'telefono'=>$cliente->telefono,
+							'telefono'=>$data['telefono'],
 							'creado'=>date('d-m-Y H:i'),
 							'recoleccion'=> $data['fecha_recoleccion'],
 							'direccion'=>   $data['direccion']. " Entre: " . $data['calles'],
 							'costo'=>$costo,
 							'servicio'=>$servicio_solicitado,
-							'correo'=>$cliente->correo,
+							'correo'=>$data['correo'],
 							'pago' =>$pago,
 							'hora_recoleccion' =>$hora_recoleccion,
 							'hora_entrega' =>$hora_entrega,
