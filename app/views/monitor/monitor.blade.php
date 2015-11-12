@@ -73,7 +73,11 @@
             <li>  {{ HTML::link('servicios', 'Servicios', array('class' => 'list-group-item')); }}                      </li>
             <!--<li>  {{ HTML::link('lavado', 'Lavado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
             <li>  {{ HTML::link('planchado', 'Planchado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
-            --><li>  {{ HTML::link('pedidos', 'Pedidos', array('class' => 'list-group-item')); }}                      </li>
+            --><li>  {{ HTML::link('pedidos', 'Pedidos', array('class' => 'list-group-item')); }}   
+            <li>  {{ HTML::link('promociones', 'Promociones', array('class' => 'list-group-item')); }}                      </li>
+          <li>  {{ HTML::link('corporativo1', 'Corporativo Empresas', array('class' => 'list-group-item')); }}                      </li>
+          <li>  {{ HTML::link('corporativo2', 'Corporativo Empleados', array('class' => 'list-group-item')); }}                      </li>
+          <li>  {{ HTML::link('corporativo3', 'Corporativo Pedidos', array('class' => 'list-group-item')); }}                      </li>
             <li>  {{ HTML::link('logout', 'Salir', array('class' => 'list-group-item')); }}                      </li>
            
         </ul>

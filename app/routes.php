@@ -27,6 +27,11 @@ Route::get('login', 'AuthController@showLogin'); // Mostrar login
 //'AuthController@login'
 Route::post('login', ['as'=> 'login','uses'=>'AuthController@login']); // Verificar datos
 Route::get('logout', 'AuthController@logOut'); // Finalizar sesión
+Route::get('promociones', ['as'=> 'promociones','uses'=>'HomeController@promociones']);
+Route::get('corporativo1', ['as'=> 'corporativo1','uses'=>'HomeController@corporativo1']);
+Route::get('corporativo2', ['as'=> 'corporativo2','uses'=>'HomeController@corporativo2']);
+Route::get('corporativo3', ['as'=> 'corporativo3','uses'=>'HomeController@corporativo3']);
+
 
 
 Route::group(['before' => 'auth'], function()

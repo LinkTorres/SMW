@@ -94,6 +94,29 @@ class HomeController extends \BaseController {
 		return View::make('monitor');
 	
 	}
+
+	public function promociones(){
+		return View::make('pedidos/promociones');
+	
+	}
+	public function corporativo1(){
+		return View::make('pedidos/corporativo1');
+	
+	}
+	public function corporativo2(){
+		return View::make('pedidos/corporativo2');
+	
+	}
+	public function corporativo3(){
+		return View::make('pedidos/corporativo3');
+	
+	}
+
+	public function promociones2(){
+		
+		return Redirect::away('http://core.mintwash.com.mx/pedidos', 301);
+	}
+
 	public function principal(){
 		$data = array(1,2,3);
 		Mail::send('correo2', $data, function($message)
