@@ -1,131 +1,286 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
+<html>
+
+<head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Mint Wash</title>
 
-    <!-- Bootstrap core CSS -->
-     {{ HTML::style('asset/css/bootstrap.min.css') }}
-     {{ HTML::style('asset/css/bootstrap-datepicker3.css') }}
-     {{ HTML::style('asset/css/sesion.css') }}
-     {{ HTML::style('asset/css/jquery.dataTables.min.css') }}
-     
+    <link href="asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+
+    <link href="asset/css/animate.css" rel="stylesheet">
+    <link href="asset/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="asset/img/profile_small.jpg" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Tere</strong>
+                             </span> <span class="text-muted text-xs block">Monitor<b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="./logout">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        MW
+                    </div>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Clientes</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Corporativo</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="./corporativo3">Pedidos</a></li>
+                                <li><a href="./corporativo2">Empleados</a></li>
+                                <li><a href="./corporativo1">Empresas</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./alrededores">Aledaños</a></li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Recoleccion</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="./pedidos">Pedidos</a></li>
+                                <li><a href="./clientes">Clientes</a></li>
+                                <li><a href="./cortesias">Cortesias</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Operacion Interna</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                         <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Servicio</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="./zonas">Zonas</a></li>
+                        <li><a href="./recolectors">Recolectores</a></li>
+                        <li><a href="./servicios">Servicios</a></li>
+                    </ul>
+                </li>
+                 <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Administración</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="./insumos">Insumos</a></li>
+                       <!-- <li><a href="./insumos">Caja Chica</a></li>-->
+                        
+                        <li><a href="./nomina">Nómina</a></li>
+                        <li><a href="./promociones2">Catalogo Promociones</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Finanzas</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="./Finanzasingresos">Reporte de Ingresos</a></li>
+                        <li><a href="./FinanzasGastos">Reporte de Gastos</a></li>
+                        <li><a href="./FinanzasFinal">Reporte Ingresos - Egresos</a></li>
+                    </ul>
+                </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="./pedidos"><i class="fa fa-pie-chart"></i> <span class="nav-label">Pedidos</span>  </a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reportes</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="./reporteMauricio">Reporte Mauricio</a></li>
+                        <li><a href="./comentarios">Reporte de comentarios</a></li>
+                        <li><a href="./consolidado">Consolidado </a></li>
+                        <li><a href="./consolidadoSemanal">Consolidado Ingresos Semanal</a></li>
+
+                        <li><a href="./consolidadoNomina">Consolidado Nómina</a></li>
+                        <li><a href="./consolidadoIngresosEgresos">Ingresos - Egresos</a></li>
+                        <li><a href="./consolidadoIngresosEgresosSemanal">Consolidado Ingresos vs Egresos Semanal</a></li>
+                        
+                        <li><a href="./reportePromociones2"> Reporte Promociones</a></li>
+                    </ul>
+                </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Bienvenido a Mint Wash</span>
+                </li>
+
+
+                <li>
+                    <a href="./logout">
+                        <i class="fa fa-sign-out"></i> Cerrar sesión
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div><!--
+            <div class="wrapper wrapper-content">
+        <div class="row">
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-success pull-right">Mensual</span>
+                                <h5>Ingresos</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">40 886,200</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-info pull-right">Anual</span>
+                                <h5>Ordenes</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">275,800</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-primary pull-right">Hoy</span>
+                                <h5>Visitantes</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">106,120</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+
+            </div>
+        </div>
+        <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Ordenes</h5>
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-xs btn-white active">Hoy</button>
+                                        <button type="button" class="btn btn-xs btn-white">Mes</button>
+                                        <button type="button" class="btn btn-xs btn-white">Año</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="flot-chart">
+                                        <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul class="stat-list">
+                                        <li>
+                                            <h2 class="no-margins">2,346</h2>
+                                            <small>Total de ordenes en el periodo</small>
+                                            <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
+                                            <div class="progress progress-mini">
+                                                <div style="width: 48%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">4,422</h2>
+                                            <small>Ordenes del periodo pasado</small>
+                                            <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
+                                            <div class="progress progress-mini">
+                                                <div style="width: 60%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">9,180</h2>
+                                            <small>Ingresos de las ordenes mensuales</small>
+                                            <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
+                                            <div class="progress progress-mini">
+                                                <div style="width: 22%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
 
 
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
-    {{ HTML::script('asset/js/jquery.min.js') }}
-    {{ HTML::script('asset/js/bootstrap.min.js') }}
-    
-    {{ HTML::script('asset/js/bootstrap-datepicker.js') }}
-    {{ HTML::script('asset/js/bootstrap-datepicker.ES.js') }}
+                </div>
+                </div>
 
-    {{ HTML::script('asset/js/sesion.js') }}
-    
-    {{ HTML::script('asset/js/highcharts.js') }}
-    {{ HTML::script('asset/js/highcharts-3d.js') }}
-    {{ HTML::script('asset/js/jquery.dataTables.min.js') }}
-    
+        </div>
 
-  
-    
-  </head>
+    </div>-->
 
-  <body>
+    <!-- Mainly scripts -->
+    <script src="asset/js/jquery-2.1.1.js"></script>
+    <script src="asset/js/bootstrap.min.js"></script>
+    <script src="asset/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="asset/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-  <nav class="navbar menta navbar-fixed-top">
-    <div class="container">  
-      <div class="navbar-right">
-        <img src="asset/img/logo.png" alt="MintWash" class="img-responsive ">
-      </div> 
+    <!-- Flot -->
+    <script src="asset/js/plugins/flot/jquery.flot.js"></script>
+    <script src="asset/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="asset/js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="asset/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="asset/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="asset/js/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="asset/js/plugins/flot/jquery.flot.time.js"></script>
 
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><input class="form-control input-lg-3 hide" placeholder="Buscar"></input></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
+    <!-- Peity -->
+    <script src="asset/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="asset/js/demo/peity-demo.js"></script>
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav nav-sidebar menu">
-          <li>  </li>
+    <!-- Custom and plugin javascript -->
+    <script src="asset/js/inspinia.js"></script>
+    <script src="asset/js/plugins/pace/pace.min.js"></script>
 
-            <li>  {{ HTML::link('/', 'Inicio', array('class' => 'list-group-item')); }}                          </li>
-            
-            <li>  {{ HTML::link('clientes', 'Clientes', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('zonas', 'Zonas', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('recolectors', 'Recolectores', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('servicios', 'Servicios', array('class' => 'list-group-item')); }}                      </li>
-            <!--<li>  {{ HTML::link('lavado', 'Lavado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('planchado', 'Planchado- Via Telefonica', array('class' => 'list-group-item')); }}                      </li>
-            --><li>  {{ HTML::link('pedidos', 'Pedidos', array('class' => 'list-group-item')); }}   
-            <li>  {{ HTML::link('promociones', 'Promociones', array('class' => 'list-group-item')); }}                      </li>
-          <li>  {{ HTML::link('corporativo1', 'Corporativo Empresas', array('class' => 'list-group-item')); }}                      </li>
-          <li>  {{ HTML::link('corporativo2', 'Corporativo Empleados', array('class' => 'list-group-item')); }}                      </li>
-          <li>  {{ HTML::link('corporativo3', 'Corporativo Pedidos', array('class' => 'list-group-item')); }}                      </li>
-            <li>  {{ HTML::link('logout', 'Salir', array('class' => 'list-group-item')); }}                      </li>
-           
-        </ul>
-        
-      </div>
-      
-      <br>
-      <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 morado" style="height:10px"></div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 menta btn-texto"><h2 class="text-center">@yield('titulo')</h2></div>
-      </div>
-      <br>
+    <!-- jQuery UI -->
+    <script src="asset/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        
-        @yield('contenido')
-        
-      </div>  
+    <!-- Jvectormap -->
+    <script src="asset/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="asset/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 
-<!--Footer-->
-<footer class="footer">
-  <div class="container">
-   <div class="morado">
-      <img src="asset/img/pie.png" alt="MintWash" class="img-responsive">
-  </div>
-  </div>
-</footer>
+    <!-- EayPIE -->
+    <script src="asset/js/plugins/easypiechart/jquery.easypiechart.js"></script>
 
+    <!-- Sparkline -->
+    <script src="asset/js/plugins/sparkline/jquery.sparkline.min.js"></script>
 
-<div class="modal fade" id="mdalCargando"  data-keyboard="false" data-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Solicitud</h4>
-      </div>
-      <div class="modal-body">
-         <img src="asset/img/cargando.gif"> Espere mientras se Carga la Información
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    <!-- Sparkline demo data  -->
+    <script src="asset/js/demo/sparkline-demo.js"></script>
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-    
-  @yield('scripts')
-  </body>
+</body>
 </html>

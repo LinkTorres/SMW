@@ -70,15 +70,16 @@ class OrdenController extends \BaseController {
 			Log::info("id ".$id);
 			if (!($id>0))
 			{
-			Log::info($data);
-			$cliente= new Cliente();
-			$cliente->nombre	=$data['nombre'];
-			$cliente->direccion	=$data['direccion'];
-			$cliente->direccion = $cliente->direccion . " Entre: " . $data['calles'];
-			$cliente->telefono	=$data['telefono'];
-			$cliente->correo	=$data['correo'];
-			$cliente->ruta_id	=$data['colonia_e'];
-			$cliente->save();
+				Log::info($data);
+				$cliente= new Cliente();
+				$cliente->nombre	=$data['nombre'];
+				$cliente->direccion	=$data['direccion'];
+				$cliente->nacimiento=$data['cumple'];
+				$cliente->direccion = $cliente->direccion . " Entre: " . $data['calles'];
+				$cliente->telefono	=$data['telefono'];
+				$cliente->correo	=$data['correo'];
+				$cliente->ruta_id	=$data['colonia_e'];
+				$cliente->save();
 			}
 			//Borrar estas lineas
 					//$cliente->id= 151;

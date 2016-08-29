@@ -124,7 +124,7 @@ return array(
 
 		//Vendors
 		'Way\Generators\GeneratorsServiceProvider',
-		//'Barryvdh\Debugbar\ServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 
 
 

@@ -15,18 +15,18 @@ class HomeController extends \BaseController {
 	protected $horarioRepo;
 	protected $pedidoRepo;
 
-	
-	
+
+
 	public function __construct(PedidoRepo $pedidoRepo, ServicioRepo $servicioRepo, RutaRepo $rutaRepo, HorarioRepo $horarioRepo)
 	{
-		
-		
+
+
 		$this->servicioRepo= $servicioRepo;
 		$this->rutaRepo=$rutaRepo;
 		$this->horarioRepo=$horarioRepo;
 		$this->pedidoRepo=$pedidoRepo;
 	}
-	
+
 	public function showWelcome()
 	{
 		return View::make('index');
@@ -36,9 +36,9 @@ class HomeController extends \BaseController {
 	{
 		$zonas= Zona::all();
 
-		
+
 		return View::make('zonas/index')->with ('zonas',$zonas);;
-		
+
 		//return "Mensaje de Hola";
 	}
 
@@ -52,14 +52,23 @@ class HomeController extends \BaseController {
 
 	public function orden(){
 
-		
+
 		$rutas = $this->rutaRepo->lista_rutas();
 		$info2 = date('d-m-Y H:i');
 		Log::info($info2);
 		return View::make('orden', compact('rutas'))->with('info2',$info2);
 	}
-	
-	
+
+	public function orden2(){
+
+		$rutas = $this->rutaRepo->lista_rutas();
+		$servicio= $this->servicioRepo->listado_servicios();
+		$info2 = date('d-m-Y H:i');
+		Log::info($info2);
+		return View::make('orden2', compact('rutas','servicio','info2'));
+	}
+
+
 
 	public function historial(){
 
@@ -79,41 +88,52 @@ class HomeController extends \BaseController {
 	}
 	public function correo(){
 
-		
+
 	}
 
 	public function configuracion(){
 		return View::make('configuracion');
 	}
-	
+
 	public function manager(){
 		return View::make('manager');
-		
+
 	}
 	public function monitor(){
 		return View::make('monitor');
-	
+
 	}
 
 	public function promociones(){
 		return View::make('pedidos/promociones');
-	
+
 	}
 	public function corporativo1(){
 		return View::make('pedidos/corporativo1');
-	
+
 	}
+
+	public function saveCorporativo1(){
+		$data = Input::all();
+
+		DB::table('corporativo')->insert(
+		    array(Input::all())
+		);
+
+		return Redirect::route('alrededores');
+	}
+
 	public function corporativo2(){
 		return View::make('pedidos/corporativo2');
-	
+
 	}
 	public function corporativo3(){
 		return View::make('pedidos/corporativo3');
-	
+
 	}
 
 	public function promociones2(){
-		
+
 		return Redirect::away('http://core.mintwash.com.mx/pedidos', 301);
 	}
 
@@ -125,14 +145,14 @@ class HomeController extends \BaseController {
 
 		    $message->to('et_3001@hotmail.com');
 
-		    
+
 		});
 		return Redirect::away('http://mintwash.com.mx/', 301);
-	
+
 	}
 
 	public function ordenMail($id){
-		
+
 
 		$ticket = DB::table('tickets')->where('id',$id)->first();
 		$cliente =  DB::table('clientes')->where('id',$ticket->cliente_id)->first();
@@ -148,15 +168,13 @@ class HomeController extends \BaseController {
 		}
 		$colonia = DB::table('rutas')->where('id',$cliente->ruta_id)->first();
 
-		$data = array('cliente' => $cliente->nombre, 
+		$data = array('cliente' => $cliente->nombre,
 							'ticket'=> $ticket->id,
 							'creado'=>date('d-m-Y H:i'),
 							'recoleccion'=> $fechaRecoleccion->fecha,
 							'direccion'=>   $cliente->direccion,
 							'servicio'=>$servicio->servicio,
 							'hora_recoleccion' =>$horaRecoleccion->hora,
-							'hora_entrega' =>$horaEntrega->hora,
-							'fecha_entrega' => $fechaEntrega->fecha,
 							'colonia' => $colonia->ruta,
 							'especificacion' => $pedido->descripcion
 
@@ -171,18 +189,18 @@ class HomeController extends \BaseController {
 
 		    $message->subject('Orden Realizada');
 
-		    
+
 		});
 		return Redirect::away('http://mintwash.com.mx/', 301);
-	
+
 	}
 
 	public function usuario(){
 		return View::make('index');
-	
+
 	}
 	public function recolector(){
-		
+
 		$id = Auth::id();
         $clave = Auth::user()->clave;
 
@@ -190,10 +208,9 @@ class HomeController extends \BaseController {
         $pedidos= $this->pedidoRepo->misPedidos($clave);
         Log::info('Pedidos Recolector');
         Log::info($pedidos);
-        
+
 		return View::make('recolector', compact('pedidos'));
 	}
 
 
 }
-	

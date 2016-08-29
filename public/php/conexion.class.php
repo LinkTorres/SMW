@@ -4,8 +4,8 @@
 class conexion {
 
 	 private $usuario    = "root";
-    private $contrasena  = "";
-    private $servidor    = "localhost";
+    private $contrasena  = "root";
+    private $servidor    = "localhost:8889";
     private $baseDatos   = "mintwas1_mint";
 
 

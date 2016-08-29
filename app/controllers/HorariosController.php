@@ -67,18 +67,21 @@ class HorariosController extends \BaseController {
 					else
 					{
 					//Para los sabado hasta medio dia
-					if($hora['id']<=7)
-					{
-						echo "<pre> Sábado $sabado</pre>";
-						$disponible= new Disponibilidads();
-						$disponible->fecha=$fecha;
-						$disponible->hora_id=$hora['id'];
-						$disponible->disponible=0;
-						$disponible->zona='A';
-						$disponible->save();
-						$valores = $fecha ." ".$hora['id']." ".$hora['hora'];
-						echo "<pre>".print_r($valores,true)."</pre>";
-					}	
+						if($hora['id']<=13)
+						{
+							if($hora['id']>=5)
+							{
+								echo "<pre> Sábado $sabado Zona A</pre>";
+								$disponible= new Disponibilidads();
+								$disponible->fecha=$fecha;
+								$disponible->hora_id=$hora['id'];
+								$disponible->disponible=0;
+								$disponible->zona='A';
+								$disponible->save();
+								$valores = $fecha ." ".$hora['id']." ".$hora['hora'];
+								echo "<pre>".print_r($valores,true)."</pre>";
+							}
+						}	
 				}
 						
 			}
@@ -106,17 +109,20 @@ class HorariosController extends \BaseController {
 					else
 					{
 					//Para los sabado hasta medio dia
-					if($hora['id']<=7)
+					if($hora['id']<=13)
 					{
-						echo "<pre> Sábado $sabado</pre>";
-						$disponible= new Disponibilidads();
-						$disponible->fecha=$fecha;
-						$disponible->hora_id=$hora['id'];
-						$disponible->disponible=0;
-						$disponible->zona='B';
-						$disponible->save();
-						$valores = $fecha ." ".$hora['id']." ".$hora['hora'];
-						echo "<pre>".print_r($valores,true)."</pre>";
+						if($hora['id']>=5)
+						{
+							echo "<pre> Sábado $sabado Zona B</pre>";
+							$disponible= new Disponibilidads();
+							$disponible->fecha=$fecha;
+							$disponible->hora_id=$hora['id'];
+							$disponible->disponible=0;
+							$disponible->zona='B';
+							$disponible->save();
+							$valores = $fecha ." ".$hora['id']." ".$hora['hora'];
+							echo "<pre>".print_r($valores,true)."</pre>";
+						}
 					}	
 				}
 						

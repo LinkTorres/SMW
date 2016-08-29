@@ -85,12 +85,23 @@ return array(
 			'prefix'    => '',
 		),*/
 
-	'mysql' => array(
+	/*'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'mintwas1_mint',
 			'username'  => 'root',
 			'password'  => '',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_general_ci',
+			'prefix'    => '',
+		),*/
+//Conexion Mac Link
+'mysql' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'mintwas1_mint',
+			'username'  => 'root',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

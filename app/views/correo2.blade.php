@@ -17,7 +17,6 @@
     Orden levantada el {{ $creado }}<br>
     Servicio de {{ $servicio }}<br>
     Fecha de Recolección: {{ $recoleccion }} a las {{ $hora_recoleccion }}<br>
-    Fecha de Entrega: {{ $fecha_entrega }} a las {{ $hora_entrega }}<br>
 	Dirección de recolección: {{ $direccion }}
 	Colonia {{ $colonia }}  <br>
 	Especificaciones {{ $especificacion }}

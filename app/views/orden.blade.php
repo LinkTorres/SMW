@@ -17,7 +17,7 @@
      {{ HTML::style('web/css/main.css') }}
      {{ HTML::style('web/css/green.css') }}
 
-     
+
      {{ HTML::style('asset/css/jquery-ui.min.css') }}
      {{ HTML::style('asset/css/jquery-ui.structure.css') }}
      {{ HTML::style('https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css') }}
@@ -41,23 +41,23 @@
     {{ HTML::script('asset/js/app/orden.js') }}
     {{ HTML::script('https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js') }}
 
-    
+
 
    <script>
-  
+
    function DisableSunday(date) {
- 
+
   var day = date.getDay();
  // If day == 1 then it is MOnday
  if (day == 0) {
- 
- return [false] ; 
- 
- } else { 
- 
+
+ return [false] ;
+
+ } else {
+
  return [true] ;
  }
-  
+
 }
 
    $.datepicker.regional['es'] = {
@@ -82,11 +82,11 @@
 
 
 
-</script> 
+</script>
 
 
-  
-    
+
+
   </head>
 
   <body>
@@ -95,8 +95,8 @@
      <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          
-          <a href="index.html"><h4>Mint Wash<h4></a>
+
+          <a href="http://mintwash.com.mx"><img src="http://mintwash.com.mx/img/logo.png" width="230px; " style="vertical-align:middle;"></a>
         </div>
         <div class="navbar-collapse collapse">
         </div><!--/.nav-collapse -->
@@ -111,14 +111,14 @@
                     <div class="spacer"></div>
                     <p class="section-subtitle">Tu di cuando y donde, y nosotros lo hacemos realidad</p>
                 </header>
-       
+
 
       </div>
 
     </section><!-- about ends -->
     <section id="page-services2" class="highlight">
-   
-    
+
+
       <div class="container">
 
                 <DIV class="row">
@@ -132,7 +132,7 @@
                     <div class="col-md-3 text-center" style=" border-style: solid;">
                               <p>
                               <span>Precios</span>
-                              
+
                               <br> Lavado: $140. 4 Kilos. $35 Kilo Adicional.
                               <br> Planchado: $135 Docena. Pieza Adicional: $12.
                               <br> Pieza lavado y planchado: $15.
@@ -140,33 +140,43 @@
                     </div>
                 </DIV>
 
-                
+
 
 
           <div class="row">
 
 
-                        
-                        
 
-                        {{ Form::open(['route'=>'create.orden', 'method'=>'POST', 'role' => 'form','novalidate', 'id'=>'contact-form',  'class'=>'form-horizontal']) }}    
+
+
+                        {{ Form::open(['route'=>'create.orden', 'method'=>'POST', 'role' => 'form','novalidate', 'id'=>'contact-form',  'class'=>'form-horizontal']) }}
                        <div class="col-md-3 col-lg-3"></div>
                        <div class="col-md-6 col-lg-6 col-sm-12">
-                        
+
                         <div class="control-group">
                                {{  Form::label('nombre', 'Tu nombre') }}
-                               {{  Form::text('nombre',null, ['class' => 'form-control','required'])}}
+                               {{  Form::text('nombre',null, ['class' => 'form-control','required','placeholder' => 'Escribe tu nombre'])}}
                                {{ $errors->first('nombre','<p class="message_error">:message</p>') }}
 
-                        </div>  
+                        </div>
+
 
                         <div class="control-group">
                            {{  Form::label('correo', 'Correo') }}
-                           {{  Form::email('correo', null, ['class' => 'form-control','required'])}}
+                           {{  Form::email('correo', null, ['class' => 'form-control','required','placeholder' => 'Escribe tu Correo'])}}
                            {{ $errors->first('correo','<p class="message_error">:message</p>') }}
 
 
                         </div>
+
+                        <div class="control-group">
+                               {{  Form::label('cumple', '¿Cuándo es tu cumpleaños?') }}
+                               {{  Form::text('cumple',null, ['class' => 'form-control','required','placeholder' => 'Nos gustaria darte un detalle en ese dia especial.'])}}
+                               {{ $errors->first('cumple','<p class="message_error">:message</p>') }}
+
+                        </div>
+
+
 
                         <div class="control-group">
                            {{  Form::label('telefono', 'Teléfono') }}
@@ -187,7 +197,14 @@
                            {{  Form::text('calles',null, ['class' => 'form-control'])}}
                            {{ $errors->first('calles','<p class="message_error">:message</p>') }}
 
-                        </div>    
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                            {{  Form::label('colonia_e', 'Colonia') }}
+                            {{ Form::select('colonia_e',$rutas,null,['class'=> 'form-control'],1) }}
+                            </div>
+                        </div>
+
                         <div>
                         <br>
                         <p>¿Te entregaremos en la misma dirección?  <input type="checkbox" id="checkDir" checked data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="success" data-offstyle="danger" data-style="ios"></p>
@@ -197,17 +214,11 @@
                             {{  Form::label('entrega', 'Dirección de entrega') }}
                            {{  Form::text('entrega',null, ['class' => 'form-control','required'])}}
                         </div>
-                        <div class="control-group">
-                            <div class="controls">
-                            {{  Form::label('colonia_e', 'Colonia') }}
-                            {{ Form::select('colonia_e',$rutas,null,['class'=> 'form-control'],1) }}
-                            </div>
-                        </div>
 
                         <div class="control-group">
                             {{  Form::label('servicio', 'Servicio') }}
                             {{ Form::select('servicio',$servicio,null,['class'=> 'form-control'],1) }}
-                        </div> 
+                        </div>
 
                         <div class="control-group">
                             {{  Form::label('fecha_recoleccion', 'Fecha de Recolección') }}
@@ -223,29 +234,37 @@
 
                         <div class="control-group">
                             {{  Form::label('pago', 'Forma de Pago') }}
-                            {{ Form::select('pago',array('1' => 'Efectivo', '2' => 'Tarjeta de Crédito','3' => 'Tarjeta de Débito'),null,['class'=> 'form-control'],1) }}
-                        </div>  
+                            {{ Form::select('pago',array('1' => 'Efectivo'),null,['class'=> 'form-control'],1) }}
+                        </div>
+                        <div class="control-group">
+                            {{  Form::label('promocion','Código de promocion') }}
+                            {{  Form::text('promocion',null, ['class' => 'form-control','required'])}}
+                        </div>
+                        <div class="control-group">
+                            {{  Form::label('promocion','Código de Referido') }}
+                            {{  Form::text('promocion',null, ['class' => 'form-control','required'])}}
+                        </div>
                         <div class="control-group">
                           {{  Form::label('descripcion', 'Requerimientos Especiales') }}
-                          {{ Form::textarea('descripcion', null, ['class' => 'form-control','size' => '30x3', 'placeholder' => 'Si deseas algun (Almidon, suavizante, camisas dobladas o en gancho) puedes especificarlo aqui, si el lugar de entrega es distinto al de recolección favor de especificarlo.'])  }}
+                          {{ Form::textarea('descripcion', null, ['class' => 'form-control','size' => '30x3', 'placeholder' => 'Si deseas algun (Almidon, suavizante, camisas dobladas o en gancho) puedes especificarlo aqui.'])  }}
                         </div>
-                       
+
                         <div class="form-actions">
                             <button type="submit" class="btn btn-default btn-lg btn-block">Realizar orden</button>
                         </div>
                     </div>
                     </form><!-- End contact-form -->
 
-                  
-              
+
+
           </div>
       </div><br><br>
-      <center><a style="color:#fff;" href="avisoPrivacidad.html">Aviso de privacidad</a></center>
+      <center><a style="color:#fff;" href="http://mintwash.com.mx/avisoPrivacidad.html">Aviso de privacidad</a></center>
     </section><!-- about ends -->
     <!-- highlight section begins -->
            <!-- parallax quote begins -->
        <!-- services begins -->
-  
+
 <script type="text/javascript">
   $("#checkDir").change(function() {
     if(this.checked) {
@@ -283,16 +302,16 @@
               url: 'disponible',
               data: {fecha: fecha, col2:col2},
                 success :
-                function(data) 
-                {   
+                function(data)
+                {
                   console.log("datos: " + data);
                   for (var i in data) {
-                        $('#hora_recoleccion').append('<option value="'+data[i]['id']+'">'+data[i]['hora']+'</option>');  
+                        $('#hora_recoleccion').append('<option value="'+data[i]['id']+'">'+data[i]['hora']+'</option>');
                         console.log( i + ' - '+data[i]['hora']);
 
                       }
                 },
-              complete: 
+              complete:
                   function(){
                     //$(carga).hide('slow');
                   }
@@ -301,12 +320,12 @@
 
        }
     });
-  
+
   });
 
 </script>
 
-  
+
 </body>
 
 
